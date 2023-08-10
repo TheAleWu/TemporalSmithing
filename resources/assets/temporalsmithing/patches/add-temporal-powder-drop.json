@@ -1,0 +1,99 @@
+[
+  {
+	"file": "game:entities/land/drifter",
+	"op": "add",
+	"path": "/drops/-",
+	"value": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-powder",
+	  "quantity": {
+		"avg": 0,
+		"var": 0
+	  }
+	}
+  },
+  {
+	"file": "game:entities/land/drifter",
+	"op": "add",
+	"path": "/server/behaviors/9/dropsByType/*-normal/-",
+	"value": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-powder",
+	  "quantity": {
+		"avg": 0.5,
+		"var": 0.25,
+		"dist": "invexp"
+	  }
+	}
+  },
+  {
+	"file": "game:entities/land/drifter",
+	"op": "add",
+	"path": "/server/behaviors/9/dropsByType/*-deep/-",
+	"value": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-powder",
+	  "quantity": {
+		"avg": 0.5,
+		"var": 0.25,
+		"dist": "invexp"
+	  }
+	}
+  },
+  {
+	"file": "game:entities/land/drifter",
+	"op": "add",
+	"path": "/server/behaviors/9/dropsByType/*-tainted/-",
+	"value": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-powder",
+	  "quantity": {
+		"avg": 0.5,
+		"var": 0.25,
+		"dist": "invexp"
+	  }
+	}
+  },
+  {
+	"file": "game:entities/land/drifter",
+	"op": "add",
+	"path": "/server/behaviors/9/dropsByType/*-corrupt/-",
+	"value": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-powder",
+	  "quantity": {
+		"avg": 0.5,
+		"var": 0.25,
+		"dist": "invexp"
+	  }
+	}
+  },
+  {
+	"file": "game:entities/land/drifter",
+	"op": "add",
+	"path": "/server/behaviors/9/dropsByType/*-nightmare/-",
+	"value": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-powder",
+	  "quantity": {
+		"avg": 0.5,
+		"var": 0.25,
+		"dist": "invexp"
+	  }
+	}
+  },
+  {
+	"file": "game:entities/land/drifter",
+	"op": "add",
+	"path": "/server/behaviors/9/dropsByType/*-double-headed/-",
+	"value": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-powder",
+	  "quantity": {
+		"avg": 0.5,
+		"var": 0.25,
+		"dist": "invexp"
+	  }
+	}
+  }
+]

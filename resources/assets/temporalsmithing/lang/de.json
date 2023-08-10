@@ -1,0 +1,57 @@
+﻿{
+  "item-temporal-powder": "Temporales Pulver",
+  "item-temporal-plating": "Temporale Platte",
+  "item-temporal-pedestal-*": "Temporale Sockel",
+  "itemdesc-temporal-pedestal-*": "<font color=\"#99c9f9\"><i>Legenden besagen, dass mit diesem Sockel starke Kräfte aufbewahrt werden können.</i></font>\n",
+  "item-blunt-file-blade-*": "Stumpfes Feilenblatt",
+  "item-file-blade-*": "Feilenblatt",
+  "item-metal-file-*": "Metallfeile",
+  "item-rune-of-ripping": "Rune des Reißens",
+  "item-rune-of-yield": "Rune des Ertrags",
+  "item-rune-of-hardening": "Rune des Härtens",
+  
+  "block-smithing-table": "Schmiedetisch",
+
+  "game:tabname-smithing-general": "Temporales Schmieden",
+  "game:tabname-smithing-runes": "Runes",
+  
+  "gui-smithing-table.input-slot-invalid": "Dieses Item ist nicht modifizierbar.",
+  "gui-smithing-table.modifier-slot-invalid": "Dieses Item dient nicht als Erweckung für dieses Werkzeug.",
+  "gui-smithing-table.no-modifier-slots-remaining": "Schalte weitere Slots frei, um diese Erweckung anzubringen.",
+  "gui-smithing-table.no-modifiers-applied": "Keine Erweckungen angebracht.",
+  
+  "smithing-table.action": "Aktuelle Tätigkeit:",
+  "smithing-table.progress": "Fortschritt: {0}% ({1} von {2})",
+  "applied-modifiers": "Angebrachte Erweckungen:",
+  "applied-modifiers.and-more": "und {0} weitere...",
+  
+  "modifier.when-applied": "Wenn Erweckung angebracht wird:",
+  "modifier.when-removed": "Wenn Erweckung entfernt wird:",
+  "modifier.further-infos": "Weitere Informationen:",
+  "modifier.required-removal-hits": "Schläge zum Entfernen:",
+  "modifier.required-apply-hits": "Schläge zum Anbringen:",
+  "modifier.refund-chance": "Rückerstattungschance:",
+  "modifier.attenuation": "Abschwächungsformel:",
+  "modifier.source": "Ursprung:",
+  "modifier.hb.info": "#DAA520",
+  
+  "modifier-unknown": "Unbekannte Erweckung",
+  "modifier-unknown.explanation": "Konnte diese Erweckung nicht auflösen.",
+  "modifier-unlock": "Kräfte entfesseln",
+  "modifier-unlock.explanation": "Ermöglicht es, eine weitere Erweckung an einem Item anzubringen.",
+  "modifier-rune-of-ripping": "Blutung",
+  "modifier-rune-of-ripping.explanation": "Dem Gegner wird eine {0} Sekunden anhaltende Wunde zugefügt, welche diesen zum Bluten bringt und kontinuirlich Schaden verursacht.\nDurch wiederholtes Aufschlitzen des Gegners wird der Blutungseffekt zwar verlängert, aber nicht mehr um die initialen {0} Sekunden.",
+  "modifier-rune-of-yield": "Messerscharf",
+  "modifier-rune-of-yield.explanation": "Macht deine Klinge extrem scharf, wodurch selbst die präzisesten Schnitte möglich sind. Dies sorgt dafür, dass beim Erledigen von Kreaturen weniger Resourcen zerstört werden.\nErhöht den Loot von Kreaturen um 20%. Weiteres Schleifen der Waffe stapelt den Lootbonus, aber jeweils nur um die Hälfte des vorherigen Bonuses, also +20%, dann +10%, dann +5%, ...",
+  "modifier-rune-of-hardening": "Gehärtet",
+  "modifier-rune-of-hardening.explanation": "Durch das Einwerken von Härtungsöl wird das Metall gefestigt. Durch dieses Verfahren lässt sich bei der Verwendung des Items teilweise kein Schaden feststellen.\nMit jeder Ölhärtung wird das Item bei der Verwendung zu +10% nicht beschädigt. Ein Item lässt sich maximal fünf Mal durch Öl härten.",
+  
+  "guide.smithing-basics.title": "Grundlagen der temporalen Schmiedekunst",
+  "guide.smithing-basics.text": "<font align=\"center\"><font size=\"20\" weight=\"bold\" lineheight=\"2\">Grundlagen der temporalen Schmiedekunst</font>\n<font weight=\"bold\" lineheight=\"1.2\">Der Schmiedetisch</font></font>\nDer wichtigste Block dieser Mod ist der <a href=\"handbook://block-temporalsmithing:smithing-table\">Schmiedetisch</a>. Dieser ermöglicht es dir deine Waffen, Rüstungen, Schmuckstücke und weiteres zu erwecken. Um mit dem Erwecken zu beginnen musst du dir erst diesen Block craften.\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Oberfläche des Schmiedetisches</font>\nSobald du das GUI des Schmiedetischs öffnest wirst du von zwei Slots begrüßt. In den rechten Slot legst du deinen gewünschten Gegenstand, den du erwecken möchtest. In den linken Slot dient dazu, um den Erweckungsgegenstand hineinzulegen oder diesen wieder zurückzuerhalten, sobald du eine Erweckung von einem Gegenstand entfernst. Falls der Gegenstand im rechten Slot mindestens einen Erweckungsplatz besitzt (siehe <strong>Erweckungsplätze freischalten</strong>), so werden diese in dem unterhalb sich befindenden scrollbaren Fenster angezeigt.\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Eine Erweckung hinzufügen</font>\nDu benötigst einen Hammer, um einen Erweckungsgegenstand hinzuzufügen. Dabei ist es egal, welcher Hammer verwendet wird. Mit diesem beginnst du nun auf den Schmiedetisch zu hämmern. Nach einer bestimmten Anzahl an Hammerschlägen wird der Erweckungsgegenstand hinzugefügt.\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Eine Erweckung entfernen</font>\n<font color=\"#eb7200\" weight=\"bold\">Warnung: Das Entfernen einer Erweckung kann sich als teure Angelegenheit entpuppen, da es nicht garantiert ist, dass du den Erweckungsgegenstand zurückerhälst. Das bedeutet, dass du zwar einen Erweckungsplatz leerst, aber deine Werkzeuge dabei beschädigst und zusätzlich möglicherweise die Erweckung verlierst!</font>\nUm eine Erweckung zu entfernen muss zuerst die gewünschte Erweckung im Schmiedetisch ausgewählt werden. Dies wird dadurch dargestellt, dass die Erweckung nach einem Klick durchgekreuzt wird. Danach muss ein Hammer in die Nebenhand und ein Meißel in die Haupthand gelegt werden. Nun beginnst du deine linke Maustaste auf den Schmiedetisch gedrückt zu halten. Nach einer bestimmten Anzahl an Schlägen wird die Erweckung entfernt.\n<strong>Wichtig:</strong> Temporale Behälter können nicht mehr entfernt werden, sobald diese einmal auf einem Gegenstand angebracht wurden!\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Erweckungsplätze freischalten</font>\nUm nun Erweckungen auf deinem Gegenstand anbringen zu können musst du erst Erweckungsplätze freischalten. Dies kann erreicht werden, indem ein Temporaler Behälter mithilfe des Schmiedetisches auf den gewünschten Gegenstand angebracht wird. Lege diesen dafür einfach in den linken Slot und lass das Hämmern beginnen! Sobald der Erweckungsplatz freigeschalten wurde können passende Erweckungen auf dem Gegenstand angebracht werden. Dafür solltest du dir die Erklärung zu <a href=\"handbook://smithing-awakenings-overview\">allen verfügbaren Erweckungen</a> anschauen.",
+
+  "guide.smithing-awakenings-overview.title": "Alle möglichen Erweckungen",
+  "guide.smithing-awakenings-overview.text": "<font align=\"center\"><font size=\"20\" weight=\"bold\" lineheight=\"2\">Alle verfügbaren Erweckungen\n\n<a href=\"handbook://smithing-awakenings-sword\">Schwerterweckungen</a>\n<a href=\"handbook://smithing-awakenings-tool\">Werkzeug-Erweckungen</a>\n<a href=\"handbook://smithing-awakenings-armor\">Rüstungserweckungen</a></font>",
+
+  "guide.smithing-awakenings-sword.title": "Schwert-Erweckungen",
+  "guide.smithing-awakenings-sword.text": "<font size=\"20\" weight=\"bold\" lineheight=\"2\" align=\"center\">Schwerterweckungen</font>\n\n<ref=~mods(ItemSword)>"
+}

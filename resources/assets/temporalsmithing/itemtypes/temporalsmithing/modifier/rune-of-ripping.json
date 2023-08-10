@@ -1,0 +1,70 @@
+﻿{
+  "code": "rune-of-ripping",
+  "class": "rune-of-ripping",
+  "attributes": {
+	"key": "rune-of-ripping",
+	"group": "bleeding",
+	"data": {
+	  "descInfo": {
+		"entries": [
+		  {
+			"id": "attenuation",
+			"icon": "shatteredsword",
+			"text": "temporalsmithing:modifier.attenuation",
+			"value": "exp(-0.2·<i>stack</i>)"
+		  }
+		]
+	  }
+	}
+  },
+  "creativeinventory": {
+	"general": ["*"],
+	"smithing-runes": ["*"]
+  },
+  "drawtype": "json",
+  "shape": {
+	"base": "item/smithing/modifier/spike"
+  },
+  "textures": {
+	"material": {
+	  "base": "game:block/metal/ingot/{material}"
+	}
+  },
+  "guiTransform": {
+	"translation": {"x": 0, "y": 0, "z": 0},
+	"rotation": {"x": 125, "y": -62, "z": 0},
+	"origin": {"x": 0.75, "y": -0.2, "z": 0.75},
+	"scale": 0.65
+  },
+  "fpHandTransform": {
+	"translation": {
+	  "x": 0.25,
+	  "y": -0.2,
+	  "z": 0
+	},
+	"rotation": {
+	  "x": 70,
+	  "y": 93,
+	  "z": -20
+	},
+	"scale": 0.68
+  },
+  "tpHandTransform": {
+	"translation": {
+	  "x": 0,
+	  "y": 0,
+	  "z": 0.25
+	},
+	"rotation": {
+	  "x": 24,
+	  "y": 13,
+	  "z": -4
+	},
+	"origin": {
+	  "x": 0,
+	  "y": 0,
+	  "z": 0
+	},
+	"scale": 0.15
+  }
+}

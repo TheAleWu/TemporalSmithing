@@ -1,0 +1,160 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\$(Configuration)\Mods\mod</OutputPath>
+    <RootNamespace>ModTemplate</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="VintagestoryAPI">
+      <HintPath>$(VINTAGE_STORY)/VintagestoryAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VSSurvivalMod">
+      <HintPath>$(VINTAGE_STORY)/Mods/VSSurvivalMod.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VSEssentials">
+      <HintPath>$(VINTAGE_STORY)/Mods/VSEssentials.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VSCreativeMod">
+      <HintPath>$(VINTAGE_STORY)/Mods/VSCreativeMod.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(VINTAGE_STORY)/Lib/Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(VINTAGE_STORY)/Lib/0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VintagestoryLib">
+      <HintPath>$(VINTAGE_STORY)/VintagestoryLib.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="cairo-sharp">
+      <HintPath>$(VINTAGE_STORY)/Lib/cairo-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+<ItemGroup>
+    <Content Include="..\resources\**">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+</ItemGroup>
+
+<ItemGroup>
+  <None Include="..\resources\assets\game\lang\de.json">
+    <Link>assets\game\lang\de.json</Link>
+  </None>
+  <None Include="..\resources\assets\game\lang\en.json">
+    <Link>assets\game\lang\en.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\blocktypes\smithing-table.json">
+    <Link>assets\temporalsmithing\blocktypes\smithing-table.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\config\handbook\awakenings-overview.json">
+    <Link>assets\temporalsmithing\config\handbook\awakenings-overview.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\config\handbook\awakenings-sword.json">
+    <Link>assets\temporalsmithing\config\handbook\awakenings-sword.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\config\handbook\basics.json">
+    <Link>assets\temporalsmithing\config\handbook\basics.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\modifier\rune-of-hardening.json">
+    <Link>assets\temporalsmithing\itemtypes\temporalsmithing\modifier\rune-of-hardening.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\modifier\rune-of-ripping.json">
+    <Link>assets\temporalsmithing\itemtypes\temporalsmithing\modifier\rune-of-ripping.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\modifier\rune-of-yield.json">
+    <Link>assets\temporalsmithing\itemtypes\temporalsmithing\modifier\rune-of-yield.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\modifier\temporal-pedestal.json">
+    <Link>assets\temporalsmithing\itemtypes\temporalsmithing\modifier\temporal-pedestal.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\temporal-plating.json">
+    <Link>assets\temporalsmithing\itemtypes\temporalsmithing\temporal-plating.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\temporal-powder.json">
+    <Link>assets\temporalsmithing\itemtypes\temporalsmithing\temporal-powder.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\itemtypes\tool\blunt-file-blade.json">
+    <Link>assets\temporalsmithing\itemtypes\tool\blunt-file-blade.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\itemtypes\tool\file-blade.json">
+    <Link>assets\temporalsmithing\itemtypes\tool\file-blade.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\itemtypes\tool\metal-file.json">
+    <Link>assets\temporalsmithing\itemtypes\tool\metal-file.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\lang\de.json">
+    <Link>assets\temporalsmithing\lang\de.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\lang\en.json">
+    <Link>assets\temporalsmithing\lang\en.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\patches\add-temporal-powder-drop.json">
+    <Link>assets\temporalsmithing\patches\add-temporal-powder-drop.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\recipes\grid\file-blade.json">
+    <Link>assets\temporalsmithing\recipes\grid\file-blade.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\recipes\grid\metal-file.json">
+    <Link>assets\temporalsmithing\recipes\grid\metal-file.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\recipes\grid\rune-of-ripping.json">
+    <Link>assets\temporalsmithing\recipes\grid\rune-of-ripping.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\recipes\grid\rune-of-yield.json">
+    <Link>assets\temporalsmithing\recipes\grid\rune-of-yield.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\recipes\grid\smithing-table.json">
+    <Link>assets\temporalsmithing\recipes\grid\smithing-table.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\recipes\grid\temporal-pedestal-basic.json">
+    <Link>assets\temporalsmithing\recipes\grid\temporal-pedestal-basic.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\recipes\grid\temporal-plating.json">
+    <Link>assets\temporalsmithing\recipes\grid\temporal-plating.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\recipes\grid\temporal-powder.json">
+    <Link>assets\temporalsmithing\recipes\grid\temporal-powder.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\recipes\smithing\blunt-file-blade.json">
+    <Link>assets\temporalsmithing\recipes\smithing\blunt-file-blade.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\shapes\block\smithing-table.json">
+    <Link>assets\temporalsmithing\shapes\block\smithing-table.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\shapes\item\smithing\modifier\hardening-oil.json">
+    <Link>assets\temporalsmithing\shapes\item\smithing\modifier\hardening-oil.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\shapes\item\smithing\modifier\sanding-paper.json">
+    <Link>assets\temporalsmithing\shapes\item\smithing\modifier\sanding-paper.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\shapes\item\smithing\modifier\spike.json">
+    <Link>assets\temporalsmithing\shapes\item\smithing\modifier\spike.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\shapes\item\smithing\temporal-pedestal.json">
+    <Link>assets\temporalsmithing\shapes\item\smithing\temporal-pedestal.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\shapes\item\tool\blunt-file-blade.json">
+    <Link>assets\temporalsmithing\shapes\item\tool\blunt-file-blade.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\shapes\item\tool\file-blade.json">
+    <Link>assets\temporalsmithing\shapes\item\tool\file-blade.json</Link>
+  </None>
+  <None Include="..\resources\assets\temporalsmithing\shapes\item\tool\metal-file.json">
+    <Link>assets\temporalsmithing\shapes\item\tool\metal-file.json</Link>
+  </None>
+</ItemGroup>
+
+
+</Project>

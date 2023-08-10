@@ -1,0 +1,13 @@
+{
+    "type": "code",
+    "modid": "temporalsmithing",
+    "name": "Temporal Smithing",
+    "authors": [
+        "AleWu"
+    ],
+    "description": "Expands the default adventuring experience",
+    "version": "0.1.0",
+    "dependencies": {
+        "game": ""
+    }
+}

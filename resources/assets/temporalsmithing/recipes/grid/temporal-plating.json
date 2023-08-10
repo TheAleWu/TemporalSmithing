@@ -1,0 +1,22 @@
+﻿{
+  "ingredientPattern": "PPP,PMP,PPP",
+  "ingredients": {
+	"P": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-powder",
+	  "quantity": 4
+	},
+	"M": {
+	  "type": "item",
+	  "code": "game:metalplate-iron",
+	  "quantity": 1
+	}
+  },
+  "width": 3,
+  "height": 3,
+  "output": {
+	"type": "item",
+	"code": "temporalsmithing:temporal-plating",
+	"quantity": 1
+  }
+}

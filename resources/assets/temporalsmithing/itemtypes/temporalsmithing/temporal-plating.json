@@ -1,0 +1,90 @@
+﻿{
+  "code": "temporal-plating",
+  "shape": {
+	"base": "game:item/plate"
+  },
+  "texture": {
+	"base": "game:item/resource/plate/uranium"
+  },
+  "creativeinventory": {
+	"general": [
+	  "*"
+	],
+	"smithing-general": [
+	  "*"
+	]
+  },
+  "maxstacksize": 1,
+  "guiTransform": {
+	"translation": {
+	  "x": 3,
+	  "y": -11,
+	  "z": 0
+	},
+	"rotation": {
+	  "x": -27,
+	  "y": -45,
+	  "z": -1
+	},
+	"origin": {
+	  "x": 0,
+	  "y": 0,
+	  "z": 0
+	},
+	"scale": 2
+  },
+  "fpHandTransform": {
+	"translation": {
+	  "x": 0.5,
+	  "y": -0.25,
+	  "z": 0.75
+	},
+	"rotation": {
+	  "x": 180,
+	  "y": -9,
+	  "z": -17
+	},
+	"origin": {
+	  "x": 0,
+	  "y": 0,
+	  "z": 0
+	},
+	"scale": 2.50
+  },
+  "tpHandTransform": {
+	"translation": {
+	  "x": 0.2,
+	  "y": 0,
+	  "z": 0.5
+	},
+	"rotation": {
+	  "x": 0,
+	  "y": 0,
+	  "z": 0
+	},
+	"origin": {
+	  "x": 0,
+	  "y": 0,
+	  "z": 0
+	},
+	"scale": 0.56
+  },
+  "groundTransform": {
+	"translation": {
+	  "x": 0,
+	  "y": 0,
+	  "z": 0
+	},
+	"rotation": {
+	  "x": 0,
+	  "y": 0,
+	  "z": 0
+	},
+	"origin": {
+	  "x": 0.5,
+	  "y": 0,
+	  "z": 0.5
+	},
+	"scale": 3.15
+  }
+}

@@ -1,0 +1,27 @@
+﻿{
+  "ingredientPattern": "PTP,PPP,LLL",
+  "ingredients": {
+	"P": {
+	  "type": "item",
+	  "code": "game:plank-*",
+	  "quantity": 32
+	},
+	"L": {
+	  "type": "block",
+	  "code": "game:log-placed-*-ud",
+	  "quantity": 16
+	},
+	"T": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-plating",
+	  "quantity": 1
+	}
+  },
+  "width": 3,
+  "height": 3,
+  "output": {
+	"type": "block",
+	"code": "temporalsmithing:smithing-table",
+	"quantity": 1
+  }
+}

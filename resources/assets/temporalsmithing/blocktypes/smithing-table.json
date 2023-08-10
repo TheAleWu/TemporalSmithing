@@ -1,0 +1,62 @@
+﻿{
+  "code": "smithing-table",
+  "class": "smithing-table",
+  "entityclass": "smithing-table",
+  "drawtype": "json",
+  "shape": {
+	"base": "temporalsmithing:block/smithing-table"
+  },
+  "creativeinventory": {
+	"smithing-general": [
+	  "*"
+	]
+  },
+  "blockmaterial": "Metal",
+  "replaceable": 0,
+  "resistance": 0.5,
+  "lightAbsorption": 1,
+  "sidesolid": {
+	"all": true
+  },
+  "sideopaque": {
+	"up": true,
+	"all": false
+  },
+  "sounds": {
+	"place": "game:block/wood-tool",
+	"walk": "game:block/planks",
+	"break": "game:block/stickbreak",
+	"hit": "game:block/planks"
+  },
+  "materialDensity": 1500,
+  "tpHandTransform": {
+	"translation": {
+	  "x": 0,
+	  "y": -0.5,
+	  "z": 0.25
+	},
+	"rotation": {
+	  "x": -11,
+	  "y": 38,
+	  "z": 1
+	},
+	"origin": {
+	  "x": 0,
+	  "y": 0,
+	  "z": 0
+	},
+	"scale": 0.25
+  },
+  "fpHandTransform": {
+	"translation": {
+	  "x": 0.08,
+	  "y": -0.2,
+	  "z": 0.6
+	},
+	"rotation": {
+	  "x": -11,
+	  "y": 64,
+	  "z": 8
+	}
+  }
+}

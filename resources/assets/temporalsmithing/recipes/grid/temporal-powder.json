@@ -1,0 +1,22 @@
+﻿{
+  "ingredientPattern": "HG",
+  "ingredients": {
+	"H": {
+	  "type": "item",
+	  "code": "game:hammer-*",
+	  "isTool": true
+	},
+	"G": {
+	  "type": "item",
+	  "code": "game:gear-temporal"
+	}
+  },
+  "width": 2,
+  "height": 1,
+  "shapeless": true,
+  "output": {
+	"type": "item",
+	"code": "temporalsmithing:temporal-powder",
+	"quantity": 8
+  }
+}

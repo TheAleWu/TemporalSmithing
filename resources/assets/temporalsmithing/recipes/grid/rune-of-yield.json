@@ -1,0 +1,20 @@
+﻿{
+  "ingredientPattern": "SSS,PPP,PPP",
+  "ingredients": {
+	"S": {
+	  "type": "block",
+	  "code": "game:sand-*"
+	},
+	"P": {
+	  "type": "item",
+	  "code": "game:papyrustops"
+	}
+  },
+  "width": 3,
+  "height": 3,
+  "output": {
+	"type": "item",
+	"code": "temporalsmithing:rune-of-yield",
+	"quantity": 1
+  }
+}

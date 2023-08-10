@@ -1,0 +1,71 @@
+﻿[
+  {
+	"ingredientPattern": "_P_,PCP,_P_",
+	"ingredients": {
+	  "P": {
+		"type": "item",
+		"code": "temporalsmithing:temporal-powder"
+	  },
+	  "C": {
+		"type": "block",
+		"code": "game:chest-*"
+	  }
+	},
+	"width": 3,
+	"height": 3,
+	"shapeless": false,
+	"output": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-pedestal-basic",
+	  "quantity": 1
+	}
+  },
+  {
+	"ingredientPattern": "_P_,PCP,_P_",
+	"ingredients": {
+	  "P": {
+		"type": "item",
+		"code": "temporalsmithing:temporal-powder"
+	  },
+	  "C": {
+		"type": "block",
+		"code": "game:labeledchest-*"
+	  }
+	},
+	"width": 3,
+	"height": 3,
+	"shapeless": false,
+	"output": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-pedestal-basic",
+	  "quantity": 1
+	}
+  },
+  {
+	"ingredientPattern": "_P_,PCP,_P_",
+	"ingredients": {
+	  "P": {
+		"type": "item",
+		"code": "temporalsmithing:temporal-powder",
+		"quantity": 1
+	  },
+	  "C": {
+		"type": "block",
+		"code": "game:trunk-*",
+		"name": "orientation",
+		"returnedStack": {
+		  "type": "block",
+		  "code": "game:chest-{orientation}"
+		}
+	  }
+	},
+	"width": 3,
+	"height": 3,
+	"shapeless": false,
+	"output": {
+	  "type": "item",
+	  "code": "temporalsmithing:temporal-pedestal-basic",
+	  "quantity": 1
+	}
+  }
+]

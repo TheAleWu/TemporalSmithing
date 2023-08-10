@@ -1,0 +1,21 @@
+﻿[
+  {
+    "file": "game:config/remaps.json",
+    "op": "add",
+    "path": "/temporalsmithing:the-rune-update",
+    "value": [
+      "/iir remapq temporalsmithing:temporal-container-basic temporalsmithing:temporal-infusion",
+      "/iir remapq temporalsmithing:spike-copper temporalsmithing:rune-of-ripping",
+      "/iir remapq temporalsmithing:spike-tinbronze temporalsmithing:rune-of-ripping",
+      "/iir remapq temporalsmithing:spike-bismuthbronze temporalsmithing:rune-of-ripping",
+      "/iir remapq temporalsmithing:spike-blackbronze temporalsmithing:rune-of-ripping",
+      "/iir remapq temporalsmithing:spike-gold temporalsmithing:rune-of-ripping",
+      "/iir remapq temporalsmithing:spike-silver temporalsmithing:rune-of-ripping",
+      "/iir remapq temporalsmithing:spike-iron temporalsmithing:rune-of-ripping",
+      "/iir remapq temporalsmithing:spike-meteoriciron temporalsmithing:rune-of-ripping",
+      "/iir remapq temporalsmithing:spike-steel temporalsmithing:rune-of-ripping",
+      "/iir remapq temporalsmithing:sanding-paper temporalsmithing:rune-of-yield",
+      "/iir remapq temporalsmithing:hardening-oil temporalsmithing:rune-of-hardening"
+    ]
+  }
+]

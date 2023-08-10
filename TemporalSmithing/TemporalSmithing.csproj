@@ -46,6 +46,15 @@
     <Content Include="..\resources\**">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="..\resources\assets\game\config\remaps.json">
+      <Link>assets\game\config\remaps.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\patches\remaps.json">
+      <Link>assets\temporalsmithing\patches\remaps.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\shapes\item\smithing\temporal-infusion.json">
+      <Link>assets\temporalsmithing\shapes\item\smithing\temporal-infusion.json</Link>
+    </Content>
 </ItemGroup>
 
 <ItemGroup>
@@ -76,8 +85,8 @@
   <None Include="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\modifier\rune-of-yield.json">
     <Link>assets\temporalsmithing\itemtypes\temporalsmithing\modifier\rune-of-yield.json</Link>
   </None>
-  <None Include="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\modifier\temporal-pedestal.json">
-    <Link>assets\temporalsmithing\itemtypes\temporalsmithing\modifier\temporal-pedestal.json</Link>
+  <None Include="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\modifier\temporal-infusion.json">
+    <Link>assets\temporalsmithing\itemtypes\temporalsmithing\modifier\temporal-infusion.json</Link>
   </None>
   <None Include="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\temporal-plating.json">
     <Link>assets\temporalsmithing\itemtypes\temporalsmithing\temporal-plating.json</Link>
@@ -118,8 +127,8 @@
   <None Include="..\resources\assets\temporalsmithing\recipes\grid\smithing-table.json">
     <Link>assets\temporalsmithing\recipes\grid\smithing-table.json</Link>
   </None>
-  <None Include="..\resources\assets\temporalsmithing\recipes\grid\temporal-pedestal-basic.json">
-    <Link>assets\temporalsmithing\recipes\grid\temporal-pedestal-basic.json</Link>
+  <None Include="..\resources\assets\temporalsmithing\recipes\grid\temporal-infusion.json">
+    <Link>assets\temporalsmithing\recipes\grid\temporal-infusion.json</Link>
   </None>
   <None Include="..\resources\assets\temporalsmithing\recipes\grid\temporal-plating.json">
     <Link>assets\temporalsmithing\recipes\grid\temporal-plating.json</Link>
@@ -142,9 +151,6 @@
   <None Include="..\resources\assets\temporalsmithing\shapes\item\smithing\modifier\spike.json">
     <Link>assets\temporalsmithing\shapes\item\smithing\modifier\spike.json</Link>
   </None>
-  <None Include="..\resources\assets\temporalsmithing\shapes\item\smithing\temporal-pedestal.json">
-    <Link>assets\temporalsmithing\shapes\item\smithing\temporal-pedestal.json</Link>
-  </None>
   <None Include="..\resources\assets\temporalsmithing\shapes\item\tool\blunt-file-blade.json">
     <Link>assets\temporalsmithing\shapes\item\tool\blunt-file-blade.json</Link>
   </None>
@@ -155,6 +161,7 @@
     <Link>assets\temporalsmithing\shapes\item\tool\metal-file.json</Link>
   </None>
 </ItemGroup>
+
 
 
 </Project>

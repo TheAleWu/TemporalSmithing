@@ -24,7 +24,7 @@ public class Modifiers {
 		Register(new ModifierYield());
 		Register(new ModifierHardening());
 
-		Register("temporal-pedestal-basic", new ModifierTemporalPedestalBasic());
+		Register("temporal-infusion", new ModifierTemporalInfusion());
 	}
 
 	private void Register(Modifier mod) {

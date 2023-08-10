@@ -16,7 +16,7 @@
 	"shapeless": false,
 	"output": {
 	  "type": "item",
-	  "code": "temporalsmithing:temporal-pedestal-basic",
+	  "code": "temporalsmithing:temporal-infusion",
 	  "quantity": 1
 	}
   },
@@ -37,7 +37,7 @@
 	"shapeless": false,
 	"output": {
 	  "type": "item",
-	  "code": "temporalsmithing:temporal-pedestal-basic",
+	  "code": "temporalsmithing:temporal-infusion",
 	  "quantity": 1
 	}
   },
@@ -64,7 +64,7 @@
 	"shapeless": false,
 	"output": {
 	  "type": "item",
-	  "code": "temporalsmithing:temporal-pedestal-basic",
+	  "code": "temporalsmithing:temporal-infusion",
 	  "quantity": 1
 	}
   }

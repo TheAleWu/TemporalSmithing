@@ -29,7 +29,7 @@ public class TemporalSmithing : ModSystem {
 		Instance = this;
 
 		api.RegisterItemClass("metal-file", typeof(ItemMetalFile));
-		api.RegisterItemClass("temporal-pedestal", typeof(ItemTemporalPedestal));
+		api.RegisterItemClass("temporal-infusion", typeof(ItemTemporalInfusion));
 		api.RegisterItemClass("rune-of-ripping", typeof(RuneOfRipping));
 		api.RegisterItemClass("rune-of-yield", typeof(RuneOfYield));
 		api.RegisterItemClass("rune-of-hardening", typeof(RuneOfHardening));

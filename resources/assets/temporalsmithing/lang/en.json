@@ -1,8 +1,8 @@
 ﻿{
   "item-temporal-powder": "Temporal Powder",
   "item-temporal-plating": "Temporal Plating",
-  "item-temporal-pedestal-*": "Temporal Pedestal",
-  "itemdesc-temporal-pedestal-*": "<font color=\"#99c9f9\"><i>Legends say that this pedestal is capable of holding strong powers.</i></font>\n",
+  "item-temporal-infusion": "Temporal Infusion",
+  "itemdesc-temporal-infusion": "<font color=\"#99c9f9\"><i>Legends say that this infusion serves as a gateway to channel hidden powers.</i></font>\n",
   "item-blunt-file-blade-*": "Blunt File Blade",
   "item-file-blade-*": "File Blade",
   "item-metal-file-*": "Metal File",
@@ -15,18 +15,18 @@
   "game:tabname-smithing-general": "Temporal Smithing",
   "game:tabname-smithing-runes": "Runes",
 
-  "gui-smithing-table.input-slot-invalid": "This item can not be awoken.",
-  "gui-smithing-table.modifier-slot-invalid": "This item does not serve as an awakening to this tool.",
-  "gui-smithing-table.no-modifier-slots-remaining": "Unlock more slots to apply this awakening.",
-  "gui-smithing-table.no-modifiers-applied": "No awakenings applied.",
+  "gui-smithing-table.input-slot-invalid": "This item does not seem to contain any hidden forces.",
+  "gui-smithing-table.modifier-slot-invalid": "This item seems not unleash any forces enclosed in this item.",
+  "gui-smithing-table.no-modifier-slots-remaining": "Unlock more slots to apply this rune.",
+  "gui-smithing-table.no-modifiers-applied": "No runes applied.",
 
   "smithing-table.action": "Current activity:",
   "smithing-table.progress": "Progress: {0}% ({1} of {2})",
-  "applied-modifiers": "Applied awakenings:",
+  "applied-modifiers": "Applied runes:",
   "applied-modifiers.and-more": "and {0} more...",
 
-  "modifier.when-applied": "If awakening gets applied:",
-  "modifier.when-removed": "If awakening gets removed:",
+  "modifier.when-applied": "If applied:",
+  "modifier.when-removed": "If removed:",
   "modifier.further-infos": "Further information:",
   "modifier.required-removal-hits": "Hits to remove:",
   "modifier.required-apply-hits": "Hits to apply:",
@@ -35,10 +35,10 @@
   "modifier.source": "Source:",
   "modifier.hb.info": "#DAA520",
 
-  "modifier-unknown": "Unknown awakening",
-  "modifier-unknown.explanation": "Could not resolve this awakening.",
+  "modifier-unknown": "Unknown rune",
+  "modifier-unknown.explanation": "Could not resolve this rune.",
   "modifier-unlock": "Unleash powers",
-  "modifier-unlock.explanation": "Enables you to add another awakening onto an item.",
+  "modifier-unlock.explanation": "Enables you to add another rune onto an item.",
   "modifier-rune-of-ripping": "Bleeding",
   "modifier-rune-of-ripping.explanation": "Inflicts a wound onto the enemy that lasts {0} seconds, which makes them bleed and receive damage continuously.\nFurther ripping wounds into the enemy will still extend the bleeding duration but not for the initial {0} seconds anymore.",
   "modifier-rune-of-yield": "Razor Sharp",
@@ -47,11 +47,11 @@
   "modifier-rune-of-hardening.explanation": "By working in Hardening Oil the metal will get strengthened. Through this procedure damage on the item is not as likely to be observed on use as on untreated items.\nWith every oil hardening this item gets a +10% chance to not get damaged on use. An item can be hardened with oil a maximum of five times.",
 
   "guide.smithing-basics.title": "Basics of the Art of Temporal Smithing",
-  "guide.smithing-basics.text": "<font align=\"center\"><font size=\"20\" weight=\"bold\" lineheight=\"2\">Basics of the Art of Temporal Smithing</font>\n<font weight=\"bold\" lineheight=\"1.2\">The Smithing Table</font></font>\nThe most important block of this mod is the <a href=\"handbook://block-temporalsmithing:smithing-table\">Smithing Table</a>. It enables you to awaken your weapons, armor, jewellery and so on by adding awakenings onto them. You will have to craft yourself this block to get started.\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Smithing Table Interface</font>\nWhen opening the GUI of the Smithing Table you will be greeted by two slots on the top. Into the right slot you will put your desired item that should be awakened. The left slot is used to insert an awakening or get back the item of the awakening that you removed from your awakened item. If the item in the right slot has at least one awakening slot unlocked (see <strong>Unlock Awakening Slots</strong>) then it will also show all the awakening slots inside the scrollable window below.\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Applying an awakening</font>\nTo apply an awakening item you will need a hammer. Any hammer is possible. With this you start hammering onto the table. After a certain amount of hits the awakening item is applied.\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Removing an awakening</font>\n<font color=\"#eb7200\" weight=\"bold\">Warning: Removing an awakening can be a expensive operation as it is not guaranteed to get back the original awakening item. This means you will just free up a slot, but damage your tools and possible lose the awakening!</font>\nTo remove an awakening you must first select the desired awakening inside the Smithing Table. It will be visualized by it being crossed out. Afterwards you put any hammer inside your off-hand slot and a chisel into your main hand. Now you hold your left mouse button onto the smithing table. After a certain amount of hits the awakening will be removed.\n<strong>Important:</strong> Temporal Containers can not be removed once they have been applied onto an item!\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Unlock Awakening Slots</font>\nTo add awakenings to your items, you must unlock awakening slots first. This is done by applying a Temporal Container onto your desired item with the help of the Smithing Table. Just put it into the left slot and start hammerin'! As soon as you're finished you're ready to go adding matching awakenings. For this check out the guide about <a href=\"handbook://smithing-awakenings-overview\">every available awakening</a>.",
+  "guide.smithing-basics.text": "<font align=\"center\"><font size=\"20\" weight=\"bold\" lineheight=\"2\">Basics of temporal smithing</font>\n<font weight=\"bold\" lineheight=\"1.2\">The Smithing Table</font></font>\nThe most important block of this mod is the <a href=\"handbook://block-temporalsmithing:smithing-table\">Smithing Table</a>. It enables you to unleash the hidden powers of your weapons, armor pieces, jewelery, etc. To begin unleashing these powers you will first need to craft this block yourself.\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">The interface</font>\nWhen interacting with the Smithing Table, you will be greeted by two slots. In the right slot you need to insert the item of which you want to unleash powers. The left slot is used to insert any runes or infusions or to get back already applied runes afterwards. If the item in the right slot has already at least one rune slot unlocked (refer to <strong>Unlocking a rune slot</strong>), then these slots will be shown in the window below.\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Applying a rune or infusion</font>\nYou will need any hammer to apply a rune or an infusion. With it in your main hand you have to hammer on the Smithing Table. After a given amount of hammer hits the given rune will be applied or a new rune slot unlocked.\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Removing runes</font>\n<font color=\"#eb7200\" weight=\"bold\">Warning: Removing runes may be an expensive endeavor as you are not guaranteed to always get back your rune. This means that although you will make space for another rune, you might damage your tools and not even get back the given rune!</font>\nTo remove a rune, first off select the rune inside the Smithing Table. This is visualized by a cross over the selected rune. Afterwards, put a hammer in your off-hand and a chisel in your main-hand. Then you once again hold down on left-click on the Smithing Table. After a given amount of hits the rune will be removed.\n<strong>Important:</strong> It is not possible to remove Temporal Infusions after they have been applied to any item!\n\n<font weight=\"bold\" lineheight=\"1.2\" align=\"center\">Unlock a rune slot</font>\nTo be able to apply runes onto your items, you will have to unlock rune slots. This can be achieved by inputting a <a href=\"handbook://block-temporalsmithing:temporal-infusion\">Temporal Infusion</a> into the left slot inside the Smithing Table and then start hammering! After the infusion has been applied, you are able to insert any applicable rune into your item. For this, take a look at the explanation for <a href=\"handbook://smithing-awakenings-overview\">all available powers</a>.",
 
-  "guide.smithing-awakenings-overview.title": "All available awakenings",
-  "guide.smithing-awakenings-overview.text": "<font align=\"center\"><font size=\"20\" weight=\"bold\" lineheight=\"2\">All available awakenings\n\n<a href=\"handbook://smithing-awakenings-sword\">Sword awakenings</a>\n<a href=\"handbook://smithing-awakenings-tool\">Tool awakenings</a>\n<a href=\"handbook://smithing-awakenings-armor\">Armor awakenings</a></font>",
+  "guide.smithing-awakenings-overview.title": "All available powers",
+  "guide.smithing-awakenings-overview.text": "<font align=\"center\"><font size=\"20\" weight=\"bold\" lineheight=\"2\">All available powers\n\n<a href=\"handbook://smithing-awakenings-sword\">Powers for swords</a>\n<a href=\"handbook://smithing-awakenings-tool\">Powers for tools</a>\n<a href=\"handbook://smithing-awakenings-armor\">Powers for armor pieces</a></font>",
 
-  "guide.smithing-awakenings-sword.title": "Sword awakenings",
-  "guide.smithing-awakenings-sword.text": "<font size=\"20\" weight=\"bold\" lineheight=\"2\" align=\"center\">Sword awakenings</font>\n\n<ref=~mods(ItemSword)>"
+  "guide.smithing-awakenings-sword.title": "Powers for swords",
+  "guide.smithing-awakenings-sword.text": "<font size=\"20\" weight=\"bold\" lineheight=\"2\" align=\"center\">Powers for swords</font>\n\n<ref=~mods(ItemSword)>"
 }

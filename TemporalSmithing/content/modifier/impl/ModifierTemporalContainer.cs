@@ -4,7 +4,7 @@ using Vintagestory.API.Server;
 
 namespace temporalsmithing.content.modifier.impl;
 
-public class ModifierTemporalPedestalBasic : UnlockingModifier {
+public class ModifierTemporalInfusion : UnlockingModifier {
 
 	public override int GetRequiredHitsToApply() {
 		return 10;

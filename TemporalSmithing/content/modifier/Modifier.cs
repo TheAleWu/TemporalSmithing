@@ -152,7 +152,7 @@ public abstract class Modifier {
 			);
 		}
 
-		if (stack.Item is not ModifierItem mi) return;
+		if (stack.Item is not RuneItem mi) return;
 		var descInfoObj = mi.GetData("descInfo");
 		if (descInfoObj is null || !descInfoObj["entries"].Exists) return;
 		var furtherInfosText = Lang.Get("temporalsmithing:modifier.further-infos");
@@ -207,8 +207,8 @@ public abstract class Modifier {
 
 	public virtual void WriteHandbookDescription(ICoreAPI api, in StringBuilder builder) {
 		var modifierItems = api.World.Items
-		   .Where(x => x is ModifierItem mi && mi.Key.Equals(GetKey()))
-		   .Select(x => x as ModifierItem)
+		   .Where(x => x is RuneItem mi && mi.Key.Equals(GetKey()))
+		   .Select(x => x as RuneItem)
 		   .Where(x => x is not null)
 		   .ToArray();
 		var argumentCount = modifierItems.Max(x => x?.GetHandbookDescriptionArguments().Length);
@@ -286,7 +286,7 @@ public abstract class Modifier {
 		builder.AppendLine().AppendLine();
 	}
 
-	private static string BuildArgumentFromMultipleItems(int index, IEnumerable<ModifierItem> items) {
+	private static string BuildArgumentFromMultipleItems(int index, IEnumerable<RuneItem> items) {
 		Type type = null;
 		var arguments = new List<object>();
 		foreach (var item in items) {

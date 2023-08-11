@@ -20,6 +20,7 @@ namespace temporalsmithing;
 
 public class TemporalSmithing : ModSystem {
 
+	public const string ModId = "temporalsmithing";
 	public static readonly Harmony Harmony = new("de.alewu.temporalsmithing");
 	public static TemporalSmithing Instance;
 	public ICoreClientAPI ClientApi { get; private set; }
@@ -28,7 +29,6 @@ public class TemporalSmithing : ModSystem {
 	public override void Start(ICoreAPI api) {
 		Instance = this;
 
-		api.RegisterItemClass("metal-file", typeof(ItemMetalFile));
 		api.RegisterItemClass("temporal-infusion", typeof(ItemTemporalInfusion));
 		api.RegisterItemClass("rune-of-ripping", typeof(RuneOfRipping));
 		api.RegisterItemClass("rune-of-yield", typeof(RuneOfYield));
@@ -83,7 +83,7 @@ public class TemporalSmithing : ModSystem {
 		#region Modifier Icons
 
 		customIcons.Add("droplet", IconDroplet.Drawdroplet_svg);
-		customIcons.Add("quickslash", IconQuickSlash.Drawquickslash_svg);
+		customIcons.Add("clover", IconClover.Drawclover_svg);
 		customIcons.Add("question", IconQuestion.Drawquestion_svg);
 		customIcons.Add("goldbar", IconGoldBar.Drawgoldbar_svg);
 
@@ -98,6 +98,7 @@ public class TemporalSmithing : ModSystem {
 		customIcons.Add("edgecrack", IconEdgeCrack.Drawedgecrack_svg);
 		customIcons.Add("shatteredsword", IconShatteredSword.Drawshatteredsword_svg);
 		customIcons.Add("openchest", IconOpenChest.Drawopenchest_svg);
+		customIcons.Add("lockedfortress", IconLockedFortress.DrawlockedFortress_svg);
 
 		#endregion
 	}

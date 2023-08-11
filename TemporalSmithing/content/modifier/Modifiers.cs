@@ -41,13 +41,13 @@ public class Modifiers {
 
 	public Modifier GetModifier(ItemStack stack) {
 		Modifier result = ModifierUnknown.Instance;
-		if (stack?.Item is ModifierItem mi && registry.TryGetValue(mi.Key, out var value))
+		if (stack?.Item is RuneItem mi && registry.TryGetValue(mi.Key, out var value))
 			result = value;
 		return result;
 	}
 
 	public string GetModifierKey(ItemStack stack) {
-		return stack?.Item is ModifierItem mi ? mi.Key : "unknown";
+		return stack?.Item is RuneItem mi ? mi.Key : "unknown";
 	}
 
 	public bool IsValidModifier(ItemStack stack) {
@@ -60,10 +60,10 @@ public class Modifiers {
 
 	public Dictionary<string, List<ModifierEntry>> GroupAppliedModifiers(IEnumerable<ModifierEntry> entries) {
 		var filtered = entries
-		   .Where(x => x.SourceItem?.Item is ModifierItem { Group: not null });
+		   .Where(x => x.SourceItem?.Item is RuneItem { Group: not null });
 		var result = new Dictionary<string, List<ModifierEntry>>();
 		foreach (var entry in filtered) {
-			var group = (entry.SourceItem.Item as ModifierItem)?.Group;
+			var group = (entry.SourceItem.Item as RuneItem)?.Group;
 			if (group is null) continue;
 
 			List<ModifierEntry> list = null;

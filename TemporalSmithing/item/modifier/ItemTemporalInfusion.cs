@@ -1,3 +1,3 @@
 ﻿namespace temporalsmithing.item.modifier;
 
-public class ItemTemporalInfusion : ModifierItem { }
+public class ItemTemporalInfusion : RuneItem { }

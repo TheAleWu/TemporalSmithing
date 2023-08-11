@@ -20,11 +20,11 @@ public class ModifierYield : Modifier {
 	}
 
 	public override string GetIconKey() {
-		return "quickslash";
+		return "clover";
 	}
 
 	public override Color GetIconColor() {
-		return Color.FromArgb(140, 80, 80);
+		return Color.FromArgb(74, 170, 0);
 	}
 
 	public override float GetItemRetrievalChanceOnRemoval() {

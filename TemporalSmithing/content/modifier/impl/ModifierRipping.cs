@@ -55,7 +55,7 @@ public class ModifierRipping : Modifier {
 
 	public override object[] GetDescriptionArguments(ItemStack stack) {
 		var seconds = 0;
-		if (stack.Item is ModifierItem mi) {
+		if (stack.Item is RuneItem mi) {
 			seconds = mi.GetData<int>("duration") / 1000;
 		}
 
@@ -73,7 +73,7 @@ public class ModifierRipping : Modifier {
 			}
 		}
 
-		var bleedSecs = (currentEntry.SourceItem.Item as ModifierItem)?.GetData<int>("duration");
+		var bleedSecs = (currentEntry.SourceItem.Item as RuneItem)?.GetData<int>("duration");
 		if (bleedSecs is null) return base.OnAttackedWith(entity, damageSource, damage, currentEntry);
 		var duration = GetNerfedBloodDuration(TimeSpan.FromMilliseconds(bleedSecs.Value), timer);
 

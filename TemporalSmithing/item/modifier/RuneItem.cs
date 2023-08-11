@@ -7,9 +7,9 @@ using Vintagestory.API.Datastructures;
 
 namespace temporalsmithing.item.modifier;
 
-public class ModifierItem : Item {
+public class RuneItem : Item {
 
-	protected ModifierItem() { }
+	protected RuneItem() { }
 
 	public string Key { get; private set; }
 	public string Group { get; private set; }
@@ -25,6 +25,7 @@ public class ModifierItem : Item {
 		var dataObj = Attributes["data"];
 		if (dataObj.Exists) Data = dataObj;
 		else Data = new JsonObject(new JObject());
+
 
 		base.OnLoaded(api);
 	}

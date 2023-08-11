@@ -1,0 +1,140 @@
+﻿{
+  "code": "rune-of",
+  "class": "rune-of-{type}",
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": [
+        "ripping",
+        "yield",
+        "hardening"
+      ]
+    }
+  ],
+  "attributes": {
+    "key": "rune-of-{type}"
+  },
+  "attributesByType": {
+    "*-yield": {
+      "group": "looting"
+    },
+    "*-ripping": {
+      "group": "bleeding",
+      "data": {
+        "duration": 3000,
+        "descInfo": {
+          "entries": [
+            {
+              "id": "attenuation",
+              "icon": "shatteredsword",
+              "text": "temporalsmithing:modifier.attenuation",
+              "value": "exp(-0.2·<i>stack</i>)"
+            }
+          ]
+        }
+      }
+    },
+    "*-hardening": {
+      "group": "hardness",
+      "data": {
+        "descInfo": {
+          "entries": [
+            {
+              "id": "max-applications",
+              "icon": "lockedfortress",
+              "text": "temporalsmithing:modifier.max-applications",
+              "value": "5"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "smithing-runes": [
+      "*"
+    ],
+    "smithing-general": [
+      "*"
+    ]
+  },
+  "drawtype": "json",
+  "shape": {
+    "base": "item/rune/rune-of-{type}"
+  },
+  "guiTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": 112,
+      "y": -145,
+      "z": -3
+    },
+    "origin": {
+      "x": 0.55,
+      "y": 0,
+      "z": 0.5
+    },
+    "scale": 1.6
+  },
+  "fpHandTransform": {
+    "translation": {
+      "x": 0.4,
+      "y": 0.5,
+      "z": 0
+    },
+    "rotation": {
+      "x": 35,
+      "y": -26,
+      "z": 30
+    },
+    "origin": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "scale": 2.01
+  },
+  "tpHandTransform": {
+    "translation": {
+      "x": -1,
+      "y": 0,
+      "z": 0.6
+    },
+    "rotation": {
+      "x": 0,
+      "y": -85,
+      "z": 5
+    },
+    "origin": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "scale": 0.5
+  },
+  "groundTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "origin": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "scale": 3
+  }
+}

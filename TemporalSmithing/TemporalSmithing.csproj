@@ -55,6 +55,36 @@
     <Content Update="..\resources\assets\temporalsmithing\shapes\item\smithing\temporal-infusion.json">
       <Link>assets\temporalsmithing\shapes\item\smithing\temporal-infusion.json</Link>
     </Content>
+    <Content Update="..\resources\assets\temporalsmithing\shapes\item\rune\empty-weapon-rune.json">
+      <Link>assets\temporalsmithing\shapes\item\rune\empty-weapon-rune.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\shapes\item\rune\symbol-yield.json">
+      <Link>assets\temporalsmithing\shapes\item\rune\symbol-yield.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\shapes\item\rune\rune-of-yield.json">
+      <Link>assets\temporalsmithing\shapes\item\rune\rune-of-yield.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\rune\rune-of-hardening.json">
+      <Link>assets\temporalsmithing\itemtypes\temporalsmithing\rune\rune-of-hardening.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\rune\rune-of-ripping.json">
+      <Link>assets\temporalsmithing\itemtypes\temporalsmithing\rune\rune-of-ripping.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\rune\rune-of-yield.json">
+      <Link>assets\temporalsmithing\itemtypes\temporalsmithing\rune\rune-of-yield.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\shapes\item\rune\rune-of-yield.json">
+      <Link>assets\temporalsmithing\shapes\item\rune\rune-of-yield.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\shapes\item\rune\rune-of-ripping.json">
+      <Link>assets\temporalsmithing\shapes\item\rune\rune-of-ripping.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\itemtypes\temporalsmithing\rune\rune.json">
+      <Link>assets\temporalsmithing\itemtypes\temporalsmithing\rune\rune.json</Link>
+    </Content>
+    <Content Update="..\resources\assets\temporalsmithing\shapes\item\rune\rune-of-hardening.json">
+      <Link>assets\temporalsmithing\shapes\item\rune\rune-of-hardening.json</Link>
+    </Content>
 </ItemGroup>
 
 <ItemGroup>
@@ -136,9 +166,6 @@
   <None Include="..\resources\assets\temporalsmithing\recipes\grid\temporal-powder.json">
     <Link>assets\temporalsmithing\recipes\grid\temporal-powder.json</Link>
   </None>
-  <None Include="..\resources\assets\temporalsmithing\recipes\smithing\blunt-file-blade.json">
-    <Link>assets\temporalsmithing\recipes\smithing\blunt-file-blade.json</Link>
-  </None>
   <None Include="..\resources\assets\temporalsmithing\shapes\block\smithing-table.json">
     <Link>assets\temporalsmithing\shapes\block\smithing-table.json</Link>
   </None>
@@ -162,6 +189,13 @@
   </None>
 </ItemGroup>
 
-
+<ItemGroup>
+  <Folder Include="..\resources\assets\temporalsmithing\itemtypes\tool\">
+    <Link>assets\temporalsmithing\itemtypes\tool</Link>
+  </Folder>
+  <Folder Include="..\resources\assets\temporalsmithing\shapes\item\tool\">
+    <Link>assets\temporalsmithing\shapes\item\tool</Link>
+  </Folder>
+</ItemGroup>
 
 </Project>

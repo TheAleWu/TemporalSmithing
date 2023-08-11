@@ -1,6 +1,6 @@
 ﻿namespace temporalsmithing.item.modifier; 
 
-public class RuneOfHardening : ModifierItem {
+public class RuneOfHardening : RuneItem {
 
 	
 

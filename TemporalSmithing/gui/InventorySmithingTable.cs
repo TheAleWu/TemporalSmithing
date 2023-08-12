@@ -13,7 +13,7 @@ public class InventorySmithingTable : InventoryDisplayed {
 
 	internal const int MinSlots = 2;
 	internal readonly BlockEntitySmithingTable BlockEntity;
-	private readonly List<RunePowerEntry> modifiers = new();
+	private readonly List<AppliedRune> modifiers = new();
 	internal readonly Errors Validation;
 
 	public InventorySmithingTable(BlockEntitySmithingTable be, ICoreAPI api) : base(be, MinSlots + 9 * 6,
@@ -38,7 +38,7 @@ public class InventorySmithingTable : InventoryDisplayed {
 	}
 
 	public bool IsValidModifier() {
-		return IsItemInModifierSlot() && RunePowers.Instance.IsValidModifier(GetModifierSlot().Itemstack);
+		return IsItemInModifierSlot() && RuneService.Instance.IsValidRune(GetModifierSlot().Itemstack);
 	}
 
 	public ItemSlot GetSelectedModifierSlot() {
@@ -49,7 +49,7 @@ public class InventorySmithingTable : InventoryDisplayed {
 		if (!IsItemInInputSlot()) return false;
 
 		return GetInputSlot().Itemstack.Collectible.CollectibleBehaviors
-							 .Any(x => x is ModifiableBehavior);
+		   .Any(x => x is RuneApplicableBehavior);
 	}
 
 	public override void OnItemSlotModified(ItemSlot slot) {
@@ -60,17 +60,17 @@ public class InventorySmithingTable : InventoryDisplayed {
 		}
 
 		if (slot != GetModifierSlot()) return;
-		var mod = RunePowers.Instance.GetModifier(slot.Itemstack);
+		var mod = RuneService.Instance.GetRune(slot.Itemstack);
 		BlockEntity.UpdateRequiredHits(slot.Empty ? 0 : mod.GetRequiredHitsToApply());
 	}
 
-	public List<RunePowerEntry> GetCachedModifiers() {
+	public List<AppliedRune> GetCachedModifiers() {
 		return modifiers;
 	}
 
 	public int GetUnlockedSlots() {
 		return IsItemInInputSlot()
-			? GetInputSlot().Itemstack.Attributes?.GetInt(UnlockingRunePower.UnlockedSlotsKey) ?? 0
+			? GetInputSlot().Itemstack.Attributes?.GetInt(TemporalInfusion.UnlockedSlotsKey) ?? 0
 			: 0;
 	}
 
@@ -78,7 +78,7 @@ public class InventorySmithingTable : InventoryDisplayed {
 		modifiers.Clear();
 		var stack = GetInputSlot().Itemstack;
 		if (IsItemModifiable() && stack != null)
-			modifiers.AddRange(RunePowers.Instance.ReadAppliedModifiers(stack));
+			modifiers.AddRange(RuneService.Instance.ReadRunes(stack));
 
 		DistributeModifiersOnSlots();
 		UpdateModifierSlots();
@@ -90,7 +90,7 @@ public class InventorySmithingTable : InventoryDisplayed {
 			var modSlot = slots[MinSlots + i] as ItemSlotModifier;
 			if (modSlot is null) continue;
 
-			modSlot.HeldRunePower = i < cachedModifiers.Count
+			modSlot.HeldAppliedRunePower = i < cachedModifiers.Count
 				? cachedModifiers[i]
 				: null;
 		}
@@ -104,9 +104,9 @@ public class InventorySmithingTable : InventoryDisplayed {
 				continue;
 			}
 
-			if (slot.HeldRunePower?.SourceItem is null) return;
+			if (slot.HeldAppliedRunePower?.SourceItem is null) return;
 
-			var sourceItem = new ItemStack(slot.HeldRunePower?.SourceItem?.Item);
+			var sourceItem = new ItemStack(slot.HeldAppliedRunePower?.SourceItem?.Item);
 			slot.Itemstack = sourceItem;
 		}
 	}
@@ -163,6 +163,11 @@ public class InventorySmithingTable : InventoryDisplayed {
 				   !inv.HasFreeModificationSlots();
 		}
 
+		public bool MaximumOfRunesApplied() {
+			return inv.IsItemInModifierSlot() && inv.IsItemModifiable() && inv.IsValidModifier() &&
+				   inv.HasFreeModificationSlots() && !inv.CanApplyAnotherOfType();
+		}
+
 	}
 
 	#region Modifier Slot Condition Methods
@@ -178,17 +183,25 @@ public class InventorySmithingTable : InventoryDisplayed {
 	}
 
 	private bool CanUnlockModificationSlot() {
-		return RunePowers.Instance.GetModifier(GetModifierSlot().Itemstack) is UnlockingRunePower;
+		return RuneService.Instance.GetRune(GetModifierSlot().Itemstack) is TemporalInfusion;
 	}
 
 	private bool CanItemBeModifiedByModifier() {
 		var stack = GetInputSlot().Itemstack?.Item;
 		if (stack?.CollectibleBehaviors is null) return false;
 		foreach (var behavior in stack.CollectibleBehaviors)
-			if (behavior is ModifiableBehavior mb && mb.PossibleModifiers.Contains(BlockEntity.CurrentModifierKey))
+			if (behavior is RuneApplicableBehavior mb && mb.PossibleModifiers.Contains(BlockEntity.CurrentModifierKey))
 				return true;
 
 		return false;
+	}
+
+	private bool CanApplyAnotherOfType() {
+		var rune = RuneService.Instance.GetRune(GetModifierSlot().Itemstack);
+		if (rune == null) return false;
+		if (rune.GetMaxOfModifier() == -1) return true;
+		var appliedRunes = RuneService.Instance.ReadRunesGrouped(GetInputSlot().Itemstack)[rune];
+		return appliedRunes is null || appliedRunes.Count < rune.GetMaxOfModifier();
 	}
 
 	#endregion

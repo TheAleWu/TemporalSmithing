@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using temporalsmithing.content.modifier.events;
 using temporalsmithing.item.modifier;
 using temporalsmithing.util;
 using Vintagestory.API.Common;
@@ -13,13 +14,35 @@ using Vintagestory.API.Server;
 
 namespace temporalsmithing.content.modifier;
 
-public abstract class RunePower {
+public abstract class Rune {
+
+	#region Events
+
+	public virtual void OnPlayerAttackedEntity(PlayerAttackedEntityEvent @event) { }
+
+	public virtual void OnPlayerAttackingEntity(PlayerAttackingEntityEvent @event) { }
+
+	public virtual void OnItemDamaged(ItemDamagedEvent @event) { }
+
+	public virtual void OnInteractedWithStart(InteractionWithStartEvent @event) { }
+
+	public virtual void OnInteractedWithStep(InteractionWithStepEvent @event) { }
+
+	public virtual void OnInteractedWithStop(InteractionWithStopEvent @event) { }
+
+	public virtual void OnKillEntityWith(PlayerKilledEntityEvent @event) { }
+
+	public virtual void OnBreakBlockWith(BlockBreakEvent @event) { }
+
+	public virtual void OnEntityTakeDamage(EntityTakeDamageEvent @event) { }
+
+	#endregion
 
 	private const string HandbookInfoColor = "#DAA520";
 	private static string WhiteText => ColorToHex.Transform(Color.White);
 	public Action<ICoreAPI, ItemSlot, ItemSlot> OnModificationFinish { get; private protected set; } = (_, _, _) => { };
 
-	public Action<ICoreAPI, ItemSlot, RunePowerEntry> OnModifierRemoved { get; private protected set; } =
+	public Action<ICoreAPI, ItemSlot, AppliedRune> OnModifierRemoved { get; private protected set; } =
 		(_, _, _) => { };
 
 	/// Returns the key of the modification
@@ -35,59 +58,6 @@ public abstract class RunePower {
 	public virtual Color GetIconColor() {
 		return Color.FromArgb(255, 255, 255);
 	}
-
-	#region Events
-
-	public virtual float OnAttackedWith(Entity entity, DamageSource damageSource, float damage,
-										RunePowerEntry currentEntry) {
-		return damage;
-	}
-
-	public virtual bool OnAttackingWith(bool continueCode, IWorldAccessor world, Entity byEntity, Entity attackedEntity,
-										ItemSlot itemslot, RunePowerEntry currentEntry) {
-		return continueCode;
-	}
-
-	public virtual bool OnDamageItem(bool continueCode, IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1) {
-		return true;
-	}
-
-	public virtual Pair<EnumHandHandling, EnumHandling> OnInteractedWithStart(
-		ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent,
-		EnumHandHandling handHandling, EnumHandling handling, RunePowerEntry currentEntry) {
-		return new Pair<EnumHandHandling, EnumHandling>(handHandling, handling);
-	}
-
-	public virtual Pair<bool, EnumHandling> OnInteractedWithStep(bool wasCancelledBefore, float secondsUsed,
-																 ItemSlot slot, EntityAgent byEntity,
-																 BlockSelection blockSel, EntitySelection entitySel,
-																 EnumHandling handling,
-																 RunePowerEntry currentEntry) {
-		return new Pair<bool, EnumHandling>(wasCancelledBefore, handling);
-	}
-
-	public virtual EnumHandling OnInteractedWithStop(float secondsUsed, ItemSlot slot, EntityAgent byEntity,
-													 BlockSelection blockSel, EntitySelection entitySel,
-													 EnumHandling handling,
-													 RunePowerEntry currentEntry) {
-		return handling;
-	}
-
-	public virtual void OnKillEntityWith(Entity entity, DamageSource damagesource,
-										 RunePowerEntry currentEntry) { }
-
-	public virtual Pair<float, EnumHandling> OnBreakBlockWith(IServerPlayer byplayer, BlockSelection blocksel,
-															  float dropquantitymultiplier, EnumHandling handling,
-															  RunePowerEntry currentEntry) {
-		return new Pair<float, EnumHandling>(dropquantitymultiplier, handling);
-	}
-
-	public virtual float OnEntityReceiveDamage(DamageSource damageSource, float damage,
-											   RunePowerEntry currentEntry) {
-		return damage;
-	}
-
-	#endregion
 
 	/// Returns the max amount of applicable modifiers of this type
 	public virtual int GetMaxOfModifier() {
@@ -135,7 +105,7 @@ public abstract class RunePower {
 			$"<font color=\"#{WhiteText}\"><icon name=hammer/> {requiredApplyText} {requiredHitsToApply}</font>"
 		);
 
-		if (this is not UnlockingRunePower) {
+		if (this is not TemporalInfusion) {
 			var whenRemovedText = Lang.Get("temporalsmithing:modifier.when-removed");
 			builder.AppendLine().AppendLine(
 				$"<font lineheight=\"1.2\" color=\"#{ColorToHex.Transform(Color.Goldenrod)}\"> {whenRemovedText}</font>"
@@ -143,12 +113,24 @@ public abstract class RunePower {
 			var requiredRemovalText = Lang.Get("temporalsmithing:modifier.required-removal-hits");
 			var requiredHitsToRemove = GetRequiredHitsToRemove();
 			builder.AppendLine(
-				$"<font color=\"#{WhiteText}\"><icon name=edgecrack/> {requiredRemovalText} {requiredHitsToRemove}</font>"
+				$"<font color=\"#{
+					WhiteText
+				}\"><icon name=edgecrack/> {
+					requiredRemovalText
+				} {
+					requiredHitsToRemove
+				}</font>"
 			);
 			var removalChanceText = Lang.Get("temporalsmithing:modifier.refund-chance");
 			var removalChancePercentage = Math.Round(GetItemRetrievalPercentageOnRemoval(), 2);
 			builder.AppendLine(
-				$"<font color=\"#{WhiteText}\"><icon name=shamrock/> {removalChanceText} {removalChancePercentage}%</font>"
+				$"<font color=\"#{
+					WhiteText
+				}\"><icon name=shamrock/> {
+					removalChanceText
+				} {
+					removalChancePercentage
+				}%</font>"
 			);
 		}
 
@@ -177,7 +159,7 @@ public abstract class RunePower {
 		var modifiers = attr.GetOrAddTreeAttribute("modifiers");
 		var entry = modifiers.GetOrAddTreeAttribute(modId);
 
-		var modKey = RunePowers.Instance.GetModifierKey(modifier.Itemstack);
+		var modKey = RuneService.Instance.GetRuneKey(modifier.Itemstack);
 		entry.SetString("key", modKey);
 		entry.SetItemstack("source", modifier.Itemstack);
 		if (additionalData is not null) {
@@ -192,7 +174,7 @@ public abstract class RunePower {
 		modified.MarkDirty();
 	}
 
-	internal static void RemoveFromItem(ICoreAPI api, ItemSlot modified, RunePowerEntry entry) {
+	internal static void RemoveFromItem(ICoreAPI api, ItemSlot modified, AppliedRune entry) {
 		if (modified.Empty || modified.Itemstack.Attributes is null || entry is null) return;
 
 		var modId = entry.EntryId;
@@ -298,7 +280,11 @@ public abstract class RunePower {
 			var value = args[index];
 			if (value is null)
 				throw new IndexOutOfRangeException(
-					$"Element {index} in handbook arguments array of ModifierItem {item.Code} is null while it shouldn't!");
+					$"Element {
+						index
+					} in handbook arguments array of ModifierItem {
+						item.Code
+					} is null while it shouldn't!");
 			if (type is not null && type != value.GetType())
 				throw new IndexOutOfRangeException(
 					$"Element {index} in handbook arguments array of ModifierItem {item.Code} is not of type {type}!");

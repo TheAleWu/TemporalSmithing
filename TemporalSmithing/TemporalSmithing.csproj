@@ -127,6 +127,9 @@
     <Content Update="..\resources\assets\temporalsmithing\shapes\item\temporal-powder.json">
       <Link>assets\temporalsmithing\shapes\item\temporal-powder.json</Link>
     </Content>
+    <Content Update="..\resources\assets\temporalsmithing\recipes\grid\rune-of-hardening.json">
+      <Link>assets\temporalsmithing\recipes\grid\rune-of-hardness.json</Link>
+    </Content>
 </ItemGroup>
 
 <ItemGroup>

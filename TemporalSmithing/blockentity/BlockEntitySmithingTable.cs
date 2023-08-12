@@ -49,10 +49,10 @@ public class BlockEntitySmithingTable : BlockEntityContainer {
 		base.Initialize(api);
 
 		var modStack = inv.GetModifierSlot().Itemstack;
-		var mod = RunePowers.Instance.GetModifier(modStack);
-		if (mod is RunePowerUnknown) return;
+		var mod = RuneService.Instance.GetRune(modStack);
+		if (mod is RuneUnknown) return;
 		RequiredHits = mod.GetRequiredHitsToApply();
-		CurrentModifierKey = RunePowers.Instance.GetModifierKey(modStack);
+		CurrentModifierKey = RuneService.Instance.GetRuneKey(modStack);
 	}
 
 	public void OnPlayerRightClick(IPlayer byPlayer) {
@@ -104,7 +104,7 @@ public class BlockEntitySmithingTable : BlockEntityContainer {
 			if (inv.IsValidModifier()) {
 				dsc.AppendLine();
 				dsc.AppendLine(Lang.Get("temporalsmithing:smithing-table.action"));
-				var mod = RunePowers.Instance.GetModifier(CurrentModifierKey);
+				var mod = RuneService.Instance.GetRune(CurrentModifierKey);
 				var iconColor = "#" + ColorToHex.Transform(mod.GetIconColor());
 				var iconKey = mod.GetIconKey();
 				var modName = Lang.Get(mod.GetFullLangKey());
@@ -113,7 +113,7 @@ public class BlockEntitySmithingTable : BlockEntityContainer {
 
 				var percentage = (float)PerformedHits / RequiredHits * 100;
 				dsc.AppendLine(Lang.Get("temporalsmithing:smithing-table.progress",
-					percentage, PerformedHits, RequiredHits));
+					Math.Round(percentage, 1), PerformedHits, RequiredHits));
 
 				return;
 			}
@@ -128,9 +128,9 @@ public class BlockEntitySmithingTable : BlockEntityContainer {
 			dsc.AppendLine(Lang.Get("temporalsmithing:applied-modifiers"));
 			for (var i = 0; i < Math.Min(mods.Count, 4); i++) {
 				var entry = mods[i];
-				var iconColor = "#" + ColorToHex.Transform(entry.RunePower.GetIconColor());
-				var iconKey = entry.RunePower.GetIconKey();
-				var modName = Lang.Get(entry.RunePower.GetFullLangKey());
+				var iconColor = "#" + ColorToHex.Transform(entry.Rune.GetIconColor());
+				var iconKey = entry.Rune.GetIconKey();
+				var modName = Lang.Get(entry.Rune.GetFullLangKey());
 				dsc.AppendLine($"<font color=\"{iconColor}\"><icon name={iconKey}/></font>" +
 							   $"<font color=\"{whiteText}\"> {modName}</font>");
 			}
@@ -190,8 +190,8 @@ public class BlockEntitySmithingTable : BlockEntityContainer {
 
 						PerformedHits++;
 						if (PerformedHits >= RequiredHits) {
-							var mod = RunePowers.Instance.GetModifier(CurrentModifierKey);
-							if (mod is not RunePowerUnknown) {
+							var mod = RuneService.Instance.GetRune(CurrentModifierKey);
+							if (mod is not RuneUnknown) {
 								var inputSlot = inv.GetInputSlot();
 								mod.OnModificationFinish?.Invoke(Api, inputSlot, modifierSlot);
 								inputSlot.MarkDirty();
@@ -217,23 +217,23 @@ public class BlockEntitySmithingTable : BlockEntityContainer {
 						PerformedHits++;
 						if (PerformedHits >= RequiredHits) {
 							var selectedSlot = inv.GetSelectedModifierSlot();
-							if (selectedSlot is ItemSlotModifier { HeldRunePower: { } } ism) {
-								var mod = ism.HeldRunePower.RunePower;
+							if (selectedSlot is ItemSlotModifier { HeldAppliedRunePower: { } } ism) {
+								var mod = ism.HeldAppliedRunePower.Rune;
 								var retrievalChance = mod.GetItemRetrievalChanceOnRemoval();
 								if (new Random().NextDouble() <= retrievalChance) {
-									var sourceItemStack = ism.HeldRunePower.SourceItem;
+									var sourceItemStack = ism.HeldAppliedRunePower.SourceItem;
 									modifierSlot.Itemstack = sourceItemStack;
 									modifierSlot.MarkDirty();
 								}
 
-								if (mod is not RunePowerUnknown) {
+								if (mod is not RuneUnknown) {
 									var inputSlot = inv.GetInputSlot();
-									mod.OnModifierRemoved?.Invoke(Api, inputSlot, ism.HeldRunePower);
+									mod.OnModifierRemoved?.Invoke(Api, inputSlot, ism.HeldAppliedRunePower);
 									inputSlot.MarkDirty();
 								}
 
 								ism.Itemstack = null;
-								ism.HeldRunePower = null;
+								ism.HeldAppliedRunePower = null;
 								ism.MarkDirty();
 								sapi.Network.SendBlockEntityPacket(player as IServerPlayer, Pos, 6020, array);
 							}
@@ -315,7 +315,7 @@ public class BlockEntitySmithingTable : BlockEntityContainer {
 			}
 			case 6020: {
 				var selectedSlot = inv.GetSelectedModifierSlot();
-				if (selectedSlot is ItemSlotModifier { HeldRunePower: { } } ism) ism.HeldRunePower = null;
+				if (selectedSlot is ItemSlotModifier { HeldAppliedRunePower: { } } ism) ism.HeldAppliedRunePower = null;
 				inv.BlockEntity?.InvDialog?.MarkDirty();
 				break;
 			}

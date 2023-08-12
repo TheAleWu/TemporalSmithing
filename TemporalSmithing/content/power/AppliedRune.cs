@@ -3,17 +3,17 @@ using Vintagestory.API.Datastructures;
 
 namespace temporalsmithing.content.modifier;
 
-public class RunePowerEntry {
+public class AppliedRune {
 
-	public RunePowerEntry(string entryId, RunePower runePower, IItemStack sourceItem, ITreeAttribute attributes) {
+	public AppliedRune(string entryId, Rune rune, IItemStack sourceItem, ITreeAttribute attributes) {
 		EntryId = entryId;
 		Attributes = attributes;
 		SourceItem = sourceItem.Clone();
-		RunePower = runePower;
+		Rune = rune;
 	}
 
 	public string EntryId { get; }
-	public RunePower RunePower { get; }
+	public Rune Rune { get; }
 	public ItemStack SourceItem { get; }
 	public ITreeAttribute Attributes { get; }
 

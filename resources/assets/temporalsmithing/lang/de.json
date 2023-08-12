@@ -20,6 +20,7 @@
   "gui-smithing-table.input-slot-invalid": "Dieses Item ist nicht modifizierbar.",
   "gui-smithing-table.modifier-slot-invalid": "Dieses Item dient nicht als Erweckung für dieses Werkzeug.",
   "gui-smithing-table.no-modifier-slots-remaining": "Schalte weitere Slots frei, um diese Erweckung anzubringen.",
+  "gui-smithing-table.maximum-of-runes-reached": "Die Kraft dieser Rune wurde bereits vollkommen ausgeschöpft.",
   "gui-smithing-table.no-modifiers-applied": "Keine Runen angebracht.",
   
   "smithing-table.action": "Aktuelle Tätigkeit:",

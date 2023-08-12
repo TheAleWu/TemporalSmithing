@@ -8,19 +8,19 @@ namespace temporalsmithing.gui;
 public class ItemSlotModifier : ItemSlot {
 
 	private readonly InventorySmithingTable inv;
-	private RunePowerEntry heldRunePower;
+	private AppliedRune heldAppliedRunePower;
 	private bool selected;
 
-	public ItemSlotModifier(InventorySmithingTable inventory, RunePowerEntry heldRunePower) : base(inventory) {
+	public ItemSlotModifier(InventorySmithingTable inventory, AppliedRune heldAppliedRunePower) : base(inventory) {
 		inv = inventory;
-		HeldRunePower = heldRunePower;
+		HeldAppliedRunePower = heldAppliedRunePower;
 	}
 
-	public RunePowerEntry HeldRunePower {
-		get => heldRunePower;
+	public AppliedRune HeldAppliedRunePower {
+		get => heldAppliedRunePower;
 		internal set {
-			var init = heldRunePower is null;
-			heldRunePower = value;
+			var init = heldAppliedRunePower is null;
+			heldAppliedRunePower = value;
 			if (!init) SetSelected(false);
 		}
 	}
@@ -38,7 +38,7 @@ public class ItemSlotModifier : ItemSlot {
 	}
 
 	public bool HoldsModifier() {
-		return HeldRunePower is not null;
+		return HeldAppliedRunePower is not null;
 	}
 
 	public override string GetStackName() {
@@ -50,7 +50,7 @@ public class ItemSlotModifier : ItemSlot {
 	public override string GetStackDescription(IClientWorldAccessor world, bool extendedDebugInfo) {
 		var builder = new StringBuilder();
 
-		HeldRunePower.RunePower.WriteDescription(HeldRunePower.SourceItem, builder);
+		HeldAppliedRunePower.Rune.WriteDescription(HeldAppliedRunePower.SourceItem, builder);
 
 		return builder.ToString();
 	}
@@ -67,7 +67,10 @@ public class ItemSlotModifier : ItemSlot {
 		if (blockEntity is null) return;
 
 		blockEntity.ResetPerformedHits();
-		if (heldRunePower is not null) blockEntity.UpdateRequiredHits(heldRunePower.RunePower.GetRequiredHitsToRemove());
+		if (heldAppliedRunePower is not null)
+			blockEntity.UpdateRequiredHits(state
+				? heldAppliedRunePower.Rune.GetRequiredHitsToRemove()
+				: heldAppliedRunePower.Rune.GetRequiredHitsToApply());
 		blockEntity.InvDialog?.MarkDirty();
 	}
 

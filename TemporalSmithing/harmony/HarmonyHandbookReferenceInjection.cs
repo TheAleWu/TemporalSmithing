@@ -10,8 +10,6 @@ using Vintagestory.GameContent;
 
 namespace temporalsmithing.harmony;
 
-// ReSharper disable InconsistentNaming
-// ReSharper disable RedundantAssignment
 internal class HarmonyHandbookReferenceInjection {
 
 	public static void Patch(GuiHandbookTextPage __instance, ICoreClientAPI capi,
@@ -102,7 +100,7 @@ internal class HarmonyHandbookReferenceInjection {
 		}
 
 		var modKey = refVal.Substring(leftParenthesisIndex + 1, rightParenthesisIndex - leftParenthesisIndex - 1);
-		var mod = RunePowers.Instance.GetModifier(modKey);
+		var mod = RuneService.Instance.GetRune(modKey);
 		if (mod is null) {
 			api.Logger.Warning($"Modifier {modKey} could not be resolved.");
 			return null;
@@ -132,14 +130,14 @@ internal class HarmonyHandbookReferenceInjection {
 		   .Where(x => x is not null);
 
 		foreach (var modifiable in modifiables) {
-			if (modifiable.CollectibleBehaviors.FirstOrDefault(x => x is ModifiableBehavior) is not ModifiableBehavior
+			if (modifiable.CollectibleBehaviors.FirstOrDefault(x => x is RuneApplicableBehavior) is not RuneApplicableBehavior
 				behavior) {
 				api.Logger.Warning(
 					$"Item {modifiable.Code} could be resolved but does not contain behavior ModifiableBehavior.");
 				return null;
 			}
 
-			var modifiers = behavior.PossibleModifiers.Select(x => RunePowers.Instance.GetModifier(x));
+			var modifiers = behavior.PossibleModifiers.Select(x => RuneService.Instance.GetRune(x));
 			foreach (var mod in modifiers) {
 				mod?.WriteHandbookDescription(api, builder);
 			}

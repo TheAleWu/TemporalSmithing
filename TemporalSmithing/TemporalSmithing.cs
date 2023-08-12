@@ -36,9 +36,9 @@ public class TemporalSmithing : ModSystem {
 		api.RegisterBlockEntityClass("smithing-table", typeof(BlockEntitySmithingTable));
 
 		api.RegisterEntityBehaviorClass("playerdamagedentitylistener", typeof(PlayerDamagedEntityListener));
-		api.RegisterEntityBehaviorClass("entityhurtlistener", typeof(EntityHurtListener));
+		api.RegisterEntityBehaviorClass("entityhurtlistener", typeof(EntityTakeDamageListener));
 
-		api.RegisterCollectibleBehaviorClass("modifiable", typeof(ModifiableBehavior));
+		api.RegisterCollectibleBehaviorClass("modifiable", typeof(RuneApplicableBehavior));
 
 		base.Start(api);
 	}

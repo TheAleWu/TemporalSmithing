@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using temporalsmithing.content.modifier.events;
 using temporalsmithing.item.modifier;
 using temporalsmithing.timer;
 using temporalsmithing.util;
-using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 
 namespace temporalsmithing.content.modifier.impl;
 
-public class RunePowerRipping : RunePower {
+public class RuneRipping : Rune {
 
 	private const int MaxBloodParticleSpawners = 3;
 	private readonly Dictionary<long, int> bloodParticleSpawner = new();
@@ -24,7 +24,7 @@ public class RunePowerRipping : RunePower {
 	   .Append("bell-", Color.FromArgb(47, 16, 82).ToArgb())
 	   .Append("strawdummy", 0);
 
-	public RunePowerRipping() {
+	public RuneRipping() {
 		OnModificationFinish += (api, modified, modifier) => ApplyOnItem(api, modified, modifier);
 		OnModifierRemoved += RemoveFromItem;
 	}
@@ -50,24 +50,28 @@ public class RunePowerRipping : RunePower {
 		return new object[] { seconds };
 	}
 
-	public override float OnAttackedWith(Entity entity, DamageSource damageSource, float damage,
-										 RunePowerEntry currentEntry) {
+	public override void OnPlayerAttackedEntity(PlayerAttackedEntityEvent @event) {
+		if (@event.entries.Count <= 0) return;
+
 		ProccingTimer timer = null;
-		if (timers.ContainsKey(entity.EntityId)) {
-			timer = timers[entity.EntityId] as ProccingTimer;
+		var entity = @event.entity;
+
+		if (timers.TryGetValue(entity.EntityId, out var existingTimer)) {
+			timer = existingTimer as ProccingTimer;
 			if (timer is null || !timer.IsAlive()) {
 				timers.Remove(entity.EntityId);
 				timer = null;
 			}
 		}
 
-		var bleedSecs = (currentEntry.SourceItem.Item as RuneItem)?.GetData<int>("duration");
-		if (bleedSecs is null) return base.OnAttackedWith(entity, damageSource, damage, currentEntry);
+		var bleedSecs = (@event.entries[0].SourceItem.Item as RuneItem)?.GetData<int>("duration") *
+						@event.entries.Count;
+		if (bleedSecs is null) return;
 		var duration = GetNerfedBloodDuration(TimeSpan.FromMilliseconds(bleedSecs.Value), timer);
 
 		if (timer is null) {
 			timer = TimerRegistry.StartProccingTimer(duration, TimeSpan.FromSeconds(1),
-				new object[] { entity, damageSource.SourceEntity });
+				new object[] { entity, @event.damageSource.SourceEntity });
 			timer.LifeCondition = x => {
 				var damaged = x.Data.AccessSafe<Entity>(0);
 				return damaged is not null && damaged.State != EnumEntityState.Despawned;
@@ -79,49 +83,36 @@ public class RunePowerRipping : RunePower {
 			timer.Extend(duration);
 		}
 
-		if (bloodParticleSpawner.ContainsKey(entity.EntityId) &&
-			bloodParticleSpawner[entity.EntityId] >= MaxBloodParticleSpawners)
-			return base.OnAttackedWith(entity, damageSource, damage, currentEntry);
-
-		TemporalSmithing.Instance.ClientApi.Event.RegisterAsyncParticleSpawner((dt, manager) =>
-			SpawnBloodParticles(dt, manager, timer));
-		bloodParticleSpawner.TryGetValue(entity.EntityId, out var count);
-		count++;
-		bloodParticleSpawner[entity.EntityId] = count;
-
-		return base.OnAttackedWith(entity, damageSource, damage, currentEntry);
+		// if (bloodParticleSpawner.TryGetValue(entity.EntityId, out var particleSpawner) &&
+		// 	particleSpawner >= MaxBloodParticleSpawners)
+		// 	return;
+		//
+		// TemporalSmithing.Instance.ClientApi.Event.RegisterAsyncParticleSpawner((dt, manager) =>
+		// 	SpawnBloodParticles(dt, manager, timer));
+		// bloodParticleSpawner.TryGetValue(entity.EntityId, out var count);
+		// count++;
+		// bloodParticleSpawner[entity.EntityId] = count;
 	}
 
-	private static void BleedDamage(object[] data) {
+	private void BleedDamage(object[] data) {
 		var entity = data.AccessSafe<Entity>(0);
 		var attacker = data.AccessSafe<Entity>(1);
 		if (attacker is null) return;
 		var damageSource = new DamageSource {
-			Source = EnumDamageSource.Internal,
+			Source = EnumDamageSource.Player,
 			Type = EnumDamageType.PiercingAttack,
 			SourcePos = attacker.Pos.XYZ,
 			KnockbackStrength = 0f,
 			SourceEntity = attacker
 		};
 		if (entity is null) return;
-		entity.ReceiveDamage(damageSource, 0.5f);
+		entity.ReceiveDamage(damageSource, 0.25f);
 		entity.SetActivityRunning("invulnerable", 0);
-	}
 
-	private static TimeSpan GetNerfedBloodDuration(TimeSpan defaultSpan, Timer timer) {
-		if (timer is null || timer.GetPerformedExtensions() < 0) return defaultSpan;
-		return TimeSpan.FromMilliseconds(defaultSpan.TotalMilliseconds *
-										 Math.Pow(Math.E, -0.2 * timer.GetPerformedExtensions()));
-	}
-
-	private bool SpawnBloodParticles(float dt, IAsyncParticleManager manager, DefaultTimer timer) {
-		var entity = timer.Data.AccessSafe<Entity>(0);
-
-		if (entity is null) return false;
 		var bloodColor = entityBloodColors.GetOrDefault(x => entity.Code.Path.StartsWith(x.Key),
 			Color.FromArgb(180, 0, 0).ToArgb()).FirstOrDefault();
-		if (bloodColor == 0) return false;
-		manager.Spawn(new SimpleParticleProperties {
+		if (bloodColor == 0) return;
+		entity.World.SpawnParticles(new SimpleParticleProperties {
 			MinPos = entity.Pos.XYZ.Clone().Add(0, entity.LocalEyePos.Y / 2, 0),
 			MinVelocity = new Vec3f(-1, -1, -1),
 			AddVelocity = new Vec3f(2, 2, 2),
@@ -138,8 +129,21 @@ public class RunePowerRipping : RunePower {
 			WithTerrainCollision = true,
 			Bounciness = 0
 		});
-
-		return timer.IsAlive();
 	}
+
+	private static TimeSpan GetNerfedBloodDuration(TimeSpan defaultSpan, Timer timer) {
+		if (timer is null || timer.GetPerformedExtensions() < 0) return defaultSpan;
+		return TimeSpan.FromMilliseconds(defaultSpan.TotalMilliseconds *
+										 Math.Pow(Math.E, -0.2 * timer.GetPerformedExtensions()));
+	}
+
+	// private bool SpawnBloodParticles(float dt, IAsyncParticleManager manager, DefaultTimer timer) {
+	// 	var entity = timer.Data.AccessSafe<Entity>(0);
+	//
+	// 	if (entity is null) return false;
+	//
+	//
+	// 	return timer.IsAlive();
+	// }
 
 }

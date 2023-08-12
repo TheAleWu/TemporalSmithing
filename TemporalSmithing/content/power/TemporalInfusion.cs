@@ -2,11 +2,11 @@
 
 namespace temporalsmithing.content.modifier;
 
-public class UnlockingRunePower : RunePower {
+public class TemporalInfusion : Rune {
 
 	public const string UnlockedSlotsKey = "unlockedSlots";
 
-	protected UnlockingRunePower(int unlockedSlots = 1) {
+	protected TemporalInfusion(int unlockedSlots = 1) {
 		OnModificationFinish += (_, modified, _) => AddSlotsToStack(modified, unlockedSlots);
 	}
 

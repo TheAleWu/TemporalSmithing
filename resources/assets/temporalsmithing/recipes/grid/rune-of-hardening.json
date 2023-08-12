@@ -1,15 +1,9 @@
 ﻿{
-  "ingredientPattern": "FF,MM,CR",
+  "ingredientPattern": "KK,CR",
   "ingredients": {
-    "F": {
-      "type": "block",
-      "code": "game:flower-*",
-      "quantity": 32
-    },
-    "M": {
-      "type": "block",
-      "code": "game:mushroom-*",
-      "quantity": 16
+    "K": {
+      "type": "item",
+      "code": "game:ingot-copper"
     },
     "C": {
       "type": "item",
@@ -23,11 +17,11 @@
     }
   },
   "width": 2,
-  "height": 3,
+  "height": 2,
   "shapeless": true,
   "output": {
     "type": "item",
-    "code": "temporalsmithing:rune-of-yield",
+    "code": "temporalsmithing:rune-of-hardening",
     "quantity": 1
   }
 }

@@ -8,6 +8,9 @@
     "general": [
       "*"
     ],
+    "smithing-general": [
+      "*"
+    ],
     "smithing-runes": [
       "*"
     ]

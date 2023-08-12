@@ -4,9 +4,9 @@ using Vintagestory.API.Datastructures;
 
 namespace temporalsmithing.behavior.collectible;
 
-public class ModifierBehavior : CollectibleBehavior {
+public class RuneBehavior : CollectibleBehavior {
 
-	public ModifierBehavior(CollectibleObject collObj) : base(collObj) { }
+	public RuneBehavior(CollectibleObject collObj) : base(collObj) { }
 
 	public string ModifierKey { get; private set; }
 	public string[] AdditionalData { get; private set; }

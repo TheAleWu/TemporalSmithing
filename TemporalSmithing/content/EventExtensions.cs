@@ -1,5 +1,6 @@
-﻿using temporalsmithing.content.modifier;
-using temporalsmithing.util;
+﻿using System.Linq;
+using temporalsmithing.content.modifier;
+using temporalsmithing.content.modifier.events;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -32,24 +33,25 @@ public class EventExtensions {
 		eventApi.OnEntityDeath += OnEntityDeath;
 	}
 
-	private static void OnEntityDeath(Entity entity, DamageSource damagesource) {
-		var slots = RunePowers.GetModifiableSlots(damagesource?.SourceEntity);
-
-		RunePowers.Instance.PerformOnSlots(slots, x => x.RunePower.OnKillEntityWith(entity, damagesource, x));
+	private static void OnEntityDeath(Entity entity, DamageSource damageSource) {
+		if (damageSource.SourceEntity is not EntityPlayer || damageSource.Source is EnumDamageSource.Internal) return;
+		var runesGrouped = RuneService.Instance.ReadRunesGrouped(damageSource.SourceEntity);
+		foreach (var entry in runesGrouped.SelectMany(slot => slot.Value)) {
+			var @event = new PlayerKilledEntityEvent(entry.Value, entity, damageSource);
+			entry.Key.OnKillEntityWith(@event);
+		}
 	}
 
-	private static void OnBreakBlock(IServerPlayer byplayer, BlockSelection blocksel, ref float dropquantitymultiplier,
+	private static void OnBreakBlock(IServerPlayer byPlayer, BlockSelection blockSel, ref float dropQuantityMultiplier,
 									 ref EnumHandling handling) {
-		var slots = RunePowers.GetModifiableSlots(byplayer.Entity);
+		var runesGrouped = RuneService.Instance.ReadRunesGrouped(byPlayer.Entity);
+		foreach (var entry in runesGrouped.SelectMany(slot => slot.Value)) {
+			var @event = new BlockBreakEvent(entry.Value, byPlayer, blockSel, dropQuantityMultiplier, handling);
+			entry.Key.OnBreakBlockWith(@event);
 
-		var pair = new Pair<float, EnumHandling>(dropquantitymultiplier, handling);
-
-		Pair<float, EnumHandling> OnEntityReceiveDamageInternal(RunePowerEntry x, Pair<float, EnumHandling> y) =>
-			x.RunePower.OnBreakBlockWith(byplayer, blocksel, y.Left, y.Right, x);
-
-		pair = RunePowers.Instance.PerformOnSlots(slots, pair, OnEntityReceiveDamageInternal);
-		dropquantitymultiplier = pair.Left;
-		handling = pair.Right;
+			dropQuantityMultiplier = @event.DropQuantityMultiplier;
+			handling = @event.Handling;
+		}
 	}
 
 }

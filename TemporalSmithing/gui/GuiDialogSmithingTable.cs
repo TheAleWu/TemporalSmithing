@@ -58,56 +58,64 @@ public class GuiDialogSmithingTable : GuiDialogBlockEntity {
 			0, -10, guiWidth, guiHeight / 1.5f - 25);
 		var insetBounds = modifierBounds.ForkBoundingParent(15, 10, -10, -10);
 		var clipBounds = modifierBounds.FlatCopy()
-									   .WithParent(insetBounds);
+		   .WithParent(insetBounds);
 		var scrollbarBounds = modifierBounds.FlatCopy()
-											.FixedRightOf(modifierBounds, -20)
-											.WithFixedWidth(10)
-											.WithParent(modifierBounds);
+		   .FixedRightOf(modifierBounds, -20)
+		   .WithFixedWidth(10)
+		   .WithParent(modifierBounds);
 		var containerBounds = ElementBounds.FixedOffseted(EnumDialogArea.LeftTop, 0, 10,
 			clipBounds.fixedWidth, clipBounds.fixedHeight);
 
 		#endregion
 
+		var color = ColorUtil.Hex2Doubles("#f00000");
 		SingleComposer = capi.Gui.CreateCompo("smithingTableDialog", rootBounds)
-							 .AddShadedDialogBG(bgBounds)
-							 .AddDialogTitleBar(Lang.Get("temporalsmithing:block-smithing-table"), () => TryClose())
-							 .AddItemSlotGrid(Inventory, OnModifySlot, 1, Array(0), inputSlotBounds, InputSlotGridKey)
-							 .AddItemSlotGrid(Inventory, OnModifySlot, 1, Array(1), modSlotBounds, ModSlotGridKey)
-							 .AddDynamicCustomDraw(ElementBounds.FixedOffseted(EnumDialogArea.CenterTop, 0.0,
-									  20.0, 200.0, 90.0), OnDrawArrow,
-								  "symbolDrawer")
+		   .AddShadedDialogBG(bgBounds)
+		   .AddDialogTitleBar(Lang.Get("temporalsmithing:block-smithing-table"), () => TryClose())
+		   .AddItemSlotGrid(Inventory, OnModifySlot, 1, Array(0), inputSlotBounds, InputSlotGridKey)
+		   .AddItemSlotGrid(Inventory, OnModifySlot, 1, Array(1), modSlotBounds, ModSlotGridKey)
+		   .AddDynamicCustomDraw(ElementBounds.FixedOffseted(EnumDialogArea.CenterTop, 0.0,
+					20.0, 200.0, 90.0), OnDrawArrow,
+				"symbolDrawer")
 
-							  #region Adds Error Messages
+			#region Adds Error Messages
 
-							 .AddIf(suppressErrorText = inv.Validation.IsInputSlotInvalid())
-							 .AddStaticText(
-								  Lang.Get("temporalsmithing:gui-smithing-table.input-slot-invalid"),
-								  CairoFont.WhiteDetailText().WithColor(ColorUtil.Hex2Doubles("#f00000")),
-								  EnumTextOrientation.Center,
-								  errorMessageTextBounds
-							  )
-							 .EndIf()
-							 .AddIf(!suppressErrorText && (suppressErrorText = inv.Validation.IsModifierSlotInvalid()))
-							 .AddStaticText(
-								  Lang.Get("temporalsmithing:gui-smithing-table.modifier-slot-invalid"),
-								  CairoFont.WhiteDetailText().WithColor(ColorUtil.Hex2Doubles("#f00000")),
-								  EnumTextOrientation.Center,
-								  errorMessageTextBounds
-							  )
-							 .AddIf(!suppressErrorText && (suppressErrorText = inv.Validation.AreAllSlotsOccupied()))
-							 .AddStaticText(
-								  Lang.Get("temporalsmithing:gui-smithing-table.no-modifier-slots-remaining"),
-								  CairoFont.WhiteDetailText().WithColor(ColorUtil.Hex2Doubles("#f00000")),
-								  EnumTextOrientation.Center,
-								  errorMessageTextBounds
-							  )
-							 .EndIf()
+		   .AddIf(suppressErrorText = inv.Validation.IsInputSlotInvalid())
+		   .AddStaticText(
+				Lang.Get("temporalsmithing:gui-smithing-table.input-slot-invalid"),
+				CairoFont.WhiteDetailText().WithColor(color),
+				EnumTextOrientation.Center,
+				errorMessageTextBounds
+			)
+		   .EndIf()
+		   .AddIf(!suppressErrorText && (suppressErrorText = inv.Validation.IsModifierSlotInvalid()))
+		   .AddStaticText(
+				Lang.Get("temporalsmithing:gui-smithing-table.modifier-slot-invalid"),
+				CairoFont.WhiteDetailText().WithColor(color),
+				EnumTextOrientation.Center,
+				errorMessageTextBounds
+			)
+		   .AddIf(!suppressErrorText && (suppressErrorText = inv.Validation.AreAllSlotsOccupied()))
+		   .AddStaticText(
+				Lang.Get("temporalsmithing:gui-smithing-table.no-modifier-slots-remaining"),
+				CairoFont.WhiteDetailText().WithColor(color),
+				EnumTextOrientation.Center,
+				errorMessageTextBounds
+			)
+		   .AddIf(!suppressErrorText && (suppressErrorText = inv.Validation.MaximumOfRunesApplied()))
+		   .AddStaticText(
+				Lang.Get("temporalsmithing:gui-smithing-table.maximum-of-runes-reached"),
+				CairoFont.WhiteDetailText().WithColor(color),
+				EnumTextOrientation.Center,
+				errorMessageTextBounds
+			)
+		   .EndIf()
 
-							  #endregion
+			#endregion
 
-							 .AddIf(inv.IsItemModifiable())
-							 .AddInset(insetBounds, 3, 0.8f)
-							 .BeginClip(clipBounds);
+		   .AddIf(inv.IsItemModifiable())
+		   .AddInset(insetBounds, 3, 0.8f)
+		   .BeginClip(clipBounds);
 
 		#region Modifications Container
 
@@ -235,7 +243,7 @@ public class GuiDialogSmithingTable : GuiDialogBlockEntity {
 		var pos = blockEntity.Pos;
 		if (slot < 2) blockEntity.ResetPerformedHits();
 		if (slot == inv.GetSlotId(inv.GetModifierSlot())) {
-			var modKey = RunePowers.Instance.GetModifierKey(inv.GetModifierSlot()?.Itemstack);
+			var modKey = RuneService.Instance.GetRuneKey(inv.GetModifierSlot()?.Itemstack);
 			blockEntity.SetCurrentModifierKey(modKey);
 			blockEntity.CurrentModifierKey = modKey;
 		}

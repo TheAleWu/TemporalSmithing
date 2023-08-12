@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Drawing;
-using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
+using temporalsmithing.content.modifier.events;
 
-namespace temporalsmithing.content.modifier.impl; 
+namespace temporalsmithing.content.modifier.impl;
 
-public class RunePowerHardening : RunePower {
+public class RuneHardening : Rune {
 
-	public RunePowerHardening() {
+	public RuneHardening() {
 		OnModificationFinish += (api, modified, modifier) => ApplyOnItem(api, modified, modifier);
 		OnModifierRemoved += RemoveFromItem;
 	}
@@ -28,11 +27,11 @@ public class RunePowerHardening : RunePower {
 		return 5;
 	}
 
-	public override bool OnDamageItem(bool continueCode, IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1) {
-		if (!continueCode) return false;
-		var apply = new Random().NextDouble() <= 0.1;
-		apply = !apply;
-		return apply;
+	public override void OnItemDamaged(ItemDamagedEvent @event) {
+		if (@event.Cancelled) return;
+		var random = new Random().NextDouble();
+		var threshold = 0.1 * @event.Entries.Count;
+		@event.Cancelled = random <= threshold;
 	}
 
 }

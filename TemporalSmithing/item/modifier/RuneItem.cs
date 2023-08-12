@@ -33,7 +33,7 @@ public class RuneItem : Item {
 	public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo) {
 		base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
-		var mod = RunePowers.Instance.GetModifier(Key);
+		var mod = RuneService.Instance.GetRune(Key);
 		mod?.WriteDescription(inSlot.Itemstack, dsc);
 	}
 

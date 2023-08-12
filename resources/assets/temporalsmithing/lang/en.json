@@ -20,6 +20,7 @@
   "gui-smithing-table.input-slot-invalid": "This item does not seem to contain any hidden forces.",
   "gui-smithing-table.modifier-slot-invalid": "This item seems not unleash any forces enclosed in this item.",
   "gui-smithing-table.no-modifier-slots-remaining": "Unlock more slots to apply this rune.",
+  "gui-smithing-table.maximum-of-runes-reached": "The power of this rune has already been fully exhausted.",
   "gui-smithing-table.no-modifiers-applied": "No runes applied.",
 
   "smithing-table.action": "Current activity:",

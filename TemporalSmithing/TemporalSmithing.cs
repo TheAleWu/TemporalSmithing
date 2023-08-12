@@ -7,7 +7,6 @@ using temporalsmithing.content;
 using temporalsmithing.harmony;
 using temporalsmithing.icon;
 using temporalsmithing.item.modifier;
-using temporalsmithing.item.tool;
 using temporalsmithing.patches;
 using temporalsmithing.timer;
 using Vintagestory.API.Client;
@@ -20,7 +19,6 @@ namespace temporalsmithing;
 
 public class TemporalSmithing : ModSystem {
 
-	public const string ModId = "temporalsmithing";
 	public static readonly Harmony Harmony = new("de.alewu.temporalsmithing");
 	public static TemporalSmithing Instance;
 	public ICoreClientAPI ClientApi { get; private set; }
@@ -48,7 +46,7 @@ public class TemporalSmithing : ModSystem {
 	public override void StartClientSide(ICoreClientAPI api) {
 		ClientApi = api;
 		CreateCustomIcons(api);
-		AdditionalModifierEvents.InitClient(api);
+		EventExtensions.InitClient(api);
 
 		#region Harmony Patches
 
@@ -67,7 +65,7 @@ public class TemporalSmithing : ModSystem {
 	}
 
 	public override void StartServerSide(ICoreServerAPI api) {
-		AdditionalModifierEvents.InitServer(api);
+		EventExtensions.InitServer(api);
 		ServerApi = api;
 
 		api.Event.RegisterGameTickListener(TimerRegistry.DoTick, 100);

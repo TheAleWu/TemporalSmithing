@@ -1,65 +1,66 @@
 ﻿{
-  "code": "temporal-plating",
-  "shape": {
-    "base": "game:item/plate"
-  },
-  "texture": {
-    "base": "temporalsmithing:temporalgear-modified"
+  "code": "temporal-infusion",
+  "class": "temporal-infusion",
+  "attributes": {
+    "key": "temporal-infusion"
   },
   "creativeinventory": {
     "general": [
       "*"
     ],
-    "smithing-general": [
+    "smithing-runes": [
       "*"
     ]
+  },
+  "shape": {
+    "base": "item/temporal-infusion"
   },
   "maxstacksize": 1,
   "guiTransform": {
     "translation": {
-      "x": 3,
-      "y": 0,
-      "z": 0
+      "x": 6,
+      "y": 2,
+      "z": 10
     },
     "rotation": {
-      "x": -27,
-      "y": -45,
-      "z": -1
+      "x": 86,
+      "y": -161,
+      "z": -30
     },
     "origin": {
-      "x": 0,
-      "y": 0.3,
-      "z": 0
+      "x": 0.75,
+      "y": -0.5,
+      "z": 0.5
     },
     "scale": 1.75
   },
   "fpHandTransform": {
     "translation": {
-      "x": 0.5,
-      "y": -0.25,
-      "z": 0.75
+      "x": 0.6,
+      "y": 0.75,
+      "z": 0
     },
     "rotation": {
-      "x": 180,
-      "y": -9,
-      "z": -17
+      "x": 59,
+      "y": -27,
+      "z": 41
     },
     "origin": {
       "x": 0,
       "y": 0,
       "z": 0
     },
-    "scale": 2.50
+    "scale": 2.01
   },
   "tpHandTransform": {
     "translation": {
-      "x": 0.2,
+      "x": -0.9,
       "y": 0,
       "z": 0.5
     },
     "rotation": {
       "x": 0,
-      "y": 0,
+      "y": -90,
       "z": 0
     },
     "origin": {
@@ -67,13 +68,13 @@
       "y": 0,
       "z": 0
     },
-    "scale": 0.56
+    "scale": 0.51
   },
   "groundTransform": {
     "translation": {
-      "x": 0,
+      "x": 0.25,
       "y": 0,
-      "z": 0
+      "z": -0.25
     },
     "rotation": {
       "x": 0,
@@ -81,10 +82,10 @@
       "z": 0
     },
     "origin": {
-      "x": 0.5,
+      "x": 0,
       "y": 0,
-      "z": 0.5
+      "z": 0
     },
-    "scale": 3.15
+    "scale": 3.5
   }
 }

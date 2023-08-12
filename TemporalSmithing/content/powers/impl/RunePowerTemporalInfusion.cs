@@ -4,7 +4,7 @@ using Vintagestory.API.Server;
 
 namespace temporalsmithing.content.modifier.impl;
 
-public class ModifierTemporalInfusion : UnlockingModifier {
+public class RunePowerTemporalInfusion : UnlockingRunePower {
 
 	public override int GetRequiredHitsToApply() {
 		return 10;

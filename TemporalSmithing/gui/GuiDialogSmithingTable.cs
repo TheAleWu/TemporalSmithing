@@ -235,7 +235,7 @@ public class GuiDialogSmithingTable : GuiDialogBlockEntity {
 		var pos = blockEntity.Pos;
 		if (slot < 2) blockEntity.ResetPerformedHits();
 		if (slot == inv.GetSlotId(inv.GetModifierSlot())) {
-			var modKey = Modifiers.Instance.GetModifierKey(inv.GetModifierSlot()?.Itemstack);
+			var modKey = RunePowers.Instance.GetModifierKey(inv.GetModifierSlot()?.Itemstack);
 			blockEntity.SetCurrentModifierKey(modKey);
 			blockEntity.CurrentModifierKey = modKey;
 		}

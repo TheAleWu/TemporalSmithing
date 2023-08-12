@@ -13,7 +13,7 @@ public class InventorySmithingTable : InventoryDisplayed {
 
 	internal const int MinSlots = 2;
 	internal readonly BlockEntitySmithingTable BlockEntity;
-	private readonly List<ModifierEntry> modifiers = new();
+	private readonly List<RunePowerEntry> modifiers = new();
 	internal readonly Errors Validation;
 
 	public InventorySmithingTable(BlockEntitySmithingTable be, ICoreAPI api) : base(be, MinSlots + 9 * 6,
@@ -38,7 +38,7 @@ public class InventorySmithingTable : InventoryDisplayed {
 	}
 
 	public bool IsValidModifier() {
-		return IsItemInModifierSlot() && Modifiers.Instance.IsValidModifier(GetModifierSlot().Itemstack);
+		return IsItemInModifierSlot() && RunePowers.Instance.IsValidModifier(GetModifierSlot().Itemstack);
 	}
 
 	public ItemSlot GetSelectedModifierSlot() {
@@ -60,17 +60,17 @@ public class InventorySmithingTable : InventoryDisplayed {
 		}
 
 		if (slot != GetModifierSlot()) return;
-		var mod = Modifiers.Instance.GetModifier(slot.Itemstack);
+		var mod = RunePowers.Instance.GetModifier(slot.Itemstack);
 		BlockEntity.UpdateRequiredHits(slot.Empty ? 0 : mod.GetRequiredHitsToApply());
 	}
 
-	public List<ModifierEntry> GetCachedModifiers() {
+	public List<RunePowerEntry> GetCachedModifiers() {
 		return modifiers;
 	}
 
 	public int GetUnlockedSlots() {
 		return IsItemInInputSlot()
-			? GetInputSlot().Itemstack.Attributes?.GetInt(UnlockingModifier.UnlockedSlotsKey) ?? 0
+			? GetInputSlot().Itemstack.Attributes?.GetInt(UnlockingRunePower.UnlockedSlotsKey) ?? 0
 			: 0;
 	}
 
@@ -78,7 +78,7 @@ public class InventorySmithingTable : InventoryDisplayed {
 		modifiers.Clear();
 		var stack = GetInputSlot().Itemstack;
 		if (IsItemModifiable() && stack != null)
-			modifiers.AddRange(Modifiers.Instance.ReadAppliedModifiers(stack));
+			modifiers.AddRange(RunePowers.Instance.ReadAppliedModifiers(stack));
 
 		DistributeModifiersOnSlots();
 		UpdateModifierSlots();
@@ -90,7 +90,7 @@ public class InventorySmithingTable : InventoryDisplayed {
 			var modSlot = slots[MinSlots + i] as ItemSlotModifier;
 			if (modSlot is null) continue;
 
-			modSlot.HeldModifier = i < cachedModifiers.Count
+			modSlot.HeldRunePower = i < cachedModifiers.Count
 				? cachedModifiers[i]
 				: null;
 		}
@@ -104,9 +104,9 @@ public class InventorySmithingTable : InventoryDisplayed {
 				continue;
 			}
 
-			if (slot.HeldModifier?.SourceItem is null) return;
+			if (slot.HeldRunePower?.SourceItem is null) return;
 
-			var sourceItem = new ItemStack(slot.HeldModifier?.SourceItem?.Item);
+			var sourceItem = new ItemStack(slot.HeldRunePower?.SourceItem?.Item);
 			slot.Itemstack = sourceItem;
 		}
 	}
@@ -178,7 +178,7 @@ public class InventorySmithingTable : InventoryDisplayed {
 	}
 
 	private bool CanUnlockModificationSlot() {
-		return Modifiers.Instance.GetModifier(GetModifierSlot().Itemstack) is UnlockingModifier;
+		return RunePowers.Instance.GetModifier(GetModifierSlot().Itemstack) is UnlockingRunePower;
 	}
 
 	private bool CanItemBeModifiedByModifier() {

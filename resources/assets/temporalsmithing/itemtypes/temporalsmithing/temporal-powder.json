@@ -1,10 +1,7 @@
 ﻿{
   "code": "temporal-powder",
   "shape": {
-	"base": "game:item/resource/crushed/crushed"
-  },
-  "texture": {
-	"base": "game:item/resource/crushed/lapislazuli"
+	"base": "temporalsmithing:item/temporal-powder"
   },
   "creativeinventory": {
 	"general": ["*"],

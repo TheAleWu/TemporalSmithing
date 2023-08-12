@@ -3,44 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using temporalsmithing.content.modifier.impl;
 using temporalsmithing.item.modifier;
-using temporalsmithing;
-using temporalsmithing.content.modifier;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 
 namespace temporalsmithing.content.modifier;
 
-public class Modifiers {
+public class RunePowers {
 
-	public static readonly Modifiers Instance = new();
-	private readonly Dictionary<string, Modifier> registry = new();
-	private readonly Dictionary<string, KeyValuePair<int, List<ModifierEntry>>> cache = new();
+	public static readonly RunePowers Instance = new();
+	private readonly Dictionary<string, RunePower> registry = new();
+	private readonly Dictionary<string, KeyValuePair<int, List<RunePowerEntry>>> cache = new();
 
-	private Modifiers() {
-		Register(ModifierUnknown.Instance);
+	private RunePowers() {
+		Register(RunePowerUnknown.Instance);
 
-		Register(new ModifierRipping());
-		Register(new ModifierYield());
-		Register(new ModifierHardening());
+		Register(new RunePowerRipping());
+		Register(new RunePowerYield());
+		Register(new RunePowerHardening());
 
-		Register("temporal-infusion", new ModifierTemporalInfusion());
+		Register("temporal-infusion", new RunePowerTemporalInfusion());
 	}
 
-	private void Register(Modifier mod) {
+	private void Register(RunePower mod) {
 		registry.Add(mod.GetKey(), mod);
 	}
 
-	private void Register(string key, Modifier mod) {
+	private void Register(string key, RunePower mod) {
 		registry.Add(key, mod);
 	}
 
-	public Modifier GetModifier(string key) {
-		return key != null && registry.TryGetValue(key, out var value) ? value : ModifierUnknown.Instance;
+	public RunePower GetModifier(string key) {
+		return key != null && registry.TryGetValue(key, out var value) ? value : RunePowerUnknown.Instance;
 	}
 
-	public Modifier GetModifier(ItemStack stack) {
-		Modifier result = ModifierUnknown.Instance;
+	public RunePower GetModifier(ItemStack stack) {
+		RunePower result = RunePowerUnknown.Instance;
 		if (stack?.Item is RuneItem mi && registry.TryGetValue(mi.Key, out var value))
 			result = value;
 		return result;
@@ -51,25 +49,25 @@ public class Modifiers {
 	}
 
 	public bool IsValidModifier(ItemStack stack) {
-		return GetModifier(stack) is not ModifierUnknown;
+		return GetModifier(stack) is not RunePowerUnknown;
 	}
 
 	public int GetUnlockedSlots(ItemStack stack) {
-		return stack?.Attributes?.GetInt(UnlockingModifier.UnlockedSlotsKey) ?? 0;
+		return stack?.Attributes?.GetInt(UnlockingRunePower.UnlockedSlotsKey) ?? 0;
 	}
 
-	public Dictionary<string, List<ModifierEntry>> GroupAppliedModifiers(IEnumerable<ModifierEntry> entries) {
+	public Dictionary<string, List<RunePowerEntry>> GroupAppliedModifiers(IEnumerable<RunePowerEntry> entries) {
 		var filtered = entries
 		   .Where(x => x.SourceItem?.Item is RuneItem { Group: not null });
-		var result = new Dictionary<string, List<ModifierEntry>>();
+		var result = new Dictionary<string, List<RunePowerEntry>>();
 		foreach (var entry in filtered) {
 			var group = (entry.SourceItem.Item as RuneItem)?.Group;
 			if (group is null) continue;
 
-			List<ModifierEntry> list = null;
+			List<RunePowerEntry> list = null;
 			if (result.TryGetValue(group, out var value)) list = value;
 			if (list is null) {
-				list = new List<ModifierEntry>();
+				list = new List<RunePowerEntry>();
 				result.Add(group, list);
 			}
 
@@ -79,7 +77,7 @@ public class Modifiers {
 		return result;
 	}
 
-	public List<ModifierEntry> ReadAppliedModifiers(ItemStack stack) {
+	public List<RunePowerEntry> ReadAppliedModifiers(ItemStack stack) {
 		var uid = stack?.Attributes?.GetString("uid");
 		if (uid is null) return ReadAppliedModifiersInternal(stack);
 
@@ -88,12 +86,12 @@ public class Modifiers {
 					 cache[uid].Value.Any(x => x.SourceItem?.Item is null);
 
 		if (update)
-			cache[uid] = new KeyValuePair<int, List<ModifierEntry>>(lastUpdate, ReadAppliedModifiersInternal(stack));
+			cache[uid] = new KeyValuePair<int, List<RunePowerEntry>>(lastUpdate, ReadAppliedModifiersInternal(stack));
 
 		return cache[uid].Value;
 	}
 
-	public void PerformOnSlots(IEnumerable<ItemSlot> slots, Action<ModifierEntry> action) {
+	public void PerformOnSlots(IEnumerable<ItemSlot> slots, Action<RunePowerEntry> action) {
 		foreach (var slot in slots) {
 			var modifiers = ReadAppliedModifiers(slot?.Itemstack);
 			foreach (var entry in modifiers) {
@@ -114,34 +112,40 @@ public class Modifiers {
 		return slots;
 	}
 
-	public T PerformOnSlots<T>(IEnumerable<ItemSlot> slots, T initial, Vintagestory.API.Common.Func<ModifierEntry, T, T> action) {
+	public T PerformOnSlot<T>(ItemSlot slot, T initial, Vintagestory.API.Common.Func<RunePowerEntry, T, T> action,
+							  bool duplicate = true) {
 		var val = initial;
-		foreach (var slot in slots) {
-			var modifiers = ReadAppliedModifiers(slot?.Itemstack);
-			foreach (var entry in modifiers) {
-				val = action.Invoke(entry, val);
-			}
+		var modifiers = ReadAppliedModifiers(slot?.Itemstack);
+		var duplicates = new List<string>();
+		foreach (var entry in modifiers.Where(entry => !duplicate || !duplicates.Contains(entry.RunePower.GetKey()))) {
+			val = action.Invoke(entry, val);
+			duplicates.Add(entry.RunePower.GetKey());
 		}
 
 		return val;
 	}
 
-	private List<ModifierEntry> ReadAppliedModifiersInternal(IItemStack stack) {
-		List<ModifierEntry> mods = new();
+	public T PerformOnSlots<T>(IEnumerable<ItemSlot> slots, T initial,
+							   Vintagestory.API.Common.Func<RunePowerEntry, T, T> action, bool duplicate = true) {
+		return slots.Aggregate(initial, (current, slot) => PerformOnSlot(slot, current, action, duplicate));
+	}
+
+	private List<RunePowerEntry> ReadAppliedModifiersInternal(IItemStack stack) {
+		List<RunePowerEntry> mods = new();
 		var modifiers = stack?.Attributes?.GetTreeAttribute("modifiers");
 		if (modifiers == null) return mods;
 
 		foreach (var pair in modifiers) {
 			if (pair.Value is not ITreeAttribute data) continue;
 			var mod = GetModifier(data.GetString("key"));
-			if (mod is ModifierUnknown) continue;
+			if (mod is RunePowerUnknown) continue;
 
 			var modId = pair.Key;
 			var attr = data.GetTreeAttribute("data");
 			var sourceItem = data.GetItemstack("source");
 			if (sourceItem is null || TemporalSmithing.Instance?.ClientApi?.World is null) continue;
 			sourceItem.ResolveBlockOrItem(TemporalSmithing.Instance.ClientApi.World);
-			mods.Add(new ModifierEntry(modId, mod, sourceItem, attr));
+			mods.Add(new RunePowerEntry(modId, mod, sourceItem, attr));
 		}
 
 		return mods;
@@ -149,11 +153,11 @@ public class Modifiers {
 
 }
 
-internal class ModifierUnknown : Modifier {
+internal class RunePowerUnknown : RunePower {
 
-	public static readonly ModifierUnknown Instance = new();
+	public static readonly RunePowerUnknown Instance = new();
 
-	private ModifierUnknown() { }
+	private RunePowerUnknown() { }
 
 	public override string GetKey() {
 		return "unknown";

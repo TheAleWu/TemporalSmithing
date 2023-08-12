@@ -63,7 +63,7 @@
   },
   "drawtype": "json",
   "shape": {
-    "base": "item/rune/rune-of-{type}"
+    "base": "item/rune-of-{type}"
   },
   "guiTransform": {
     "translation": {

@@ -30,14 +30,14 @@ public class ModifiableBehavior : CollectibleBehavior {
 
 	public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world,
 										 bool withDebugInfo) {
-		var mods = Modifiers.Instance.ReadAppliedModifiers(inSlot.Itemstack);
+		var mods = RunePowers.Instance.ReadAppliedModifiers(inSlot.Itemstack);
 		if (mods != null && mods.Count > 0) {
 			var appliedModifiersStr = Lang.Get("temporalsmithing:applied-modifiers");
 			dsc.AppendLine().AppendLine($"<font color=\"#a47e00\">{appliedModifiersStr}</font>");
 			foreach (var entry in mods) {
-				var iconColor = "#" + ColorToHex.Transform(entry.Modifier.GetIconColor());
-				var icon = entry.Modifier.GetIconKey();
-				var modName = Lang.Get(entry.Modifier.GetFullLangKey());
+				var iconColor = "#" + ColorToHex.Transform(entry.RunePower.GetIconColor());
+				var icon = entry.RunePower.GetIconKey();
+				var modName = Lang.Get(entry.RunePower.GetFullLangKey());
 
 				dsc.AppendLine($"<font color=\"{iconColor}\"><icon name={icon}/></font> {modName}");
 			}
@@ -49,14 +49,14 @@ public class ModifiableBehavior : CollectibleBehavior {
 	public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel,
 											 EntitySelection entitySel, bool firstEvent,
 											 ref EnumHandHandling handHandling, ref EnumHandling handling) {
-		var slots = Modifiers.GetModifiableSlots(byEntity);
+		var slots = RunePowers.GetModifiableSlots(byEntity);
 		var pair = new Pair<EnumHandHandling, EnumHandling>(handHandling, handling);
 
 		Pair<EnumHandHandling, EnumHandling> OnHeldAttackStartInternal(
-			ModifierEntry x, Pair<EnumHandHandling, EnumHandling> y) =>
-			x.Modifier.OnInteractedWithStart(slot, byEntity, blockSel, entitySel, firstEvent, y.Left, y.Right, x);
+			RunePowerEntry x, Pair<EnumHandHandling, EnumHandling> y) =>
+			x.RunePower.OnInteractedWithStart(slot, byEntity, blockSel, entitySel, firstEvent, y.Left, y.Right, x);
 
-		pair = Modifiers.Instance.PerformOnSlots(slots, pair, OnHeldAttackStartInternal);
+		pair = RunePowers.Instance.PerformOnSlots(slots, pair, OnHeldAttackStartInternal);
 		handHandling = pair.Left;
 		handling = pair.Right;
 	}
@@ -64,14 +64,14 @@ public class ModifiableBehavior : CollectibleBehavior {
 	public override bool OnHeldInteractStep(float secondsUsed, ItemSlot slot, EntityAgent byEntity,
 											BlockSelection blockSel, EntitySelection entitySel,
 											ref EnumHandling handling) {
-		var slots = Modifiers.GetModifiableSlots(byEntity);
+		var slots = RunePowers.GetModifiableSlots(byEntity);
 		var pair = new Pair<bool, EnumHandling>(true, handling);
 
 		Pair<bool, EnumHandling> OnHeldAttackStartInternal(
-			ModifierEntry x, Pair<bool, EnumHandling> y) =>
-			x.Modifier.OnInteractedWithStep(y.Left, secondsUsed, slot, byEntity, blockSel, entitySel, y.Right, x);
+			RunePowerEntry x, Pair<bool, EnumHandling> y) =>
+			x.RunePower.OnInteractedWithStep(y.Left, secondsUsed, slot, byEntity, blockSel, entitySel, y.Right, x);
 
-		pair = Modifiers.Instance.PerformOnSlots(slots, pair, OnHeldAttackStartInternal);
+		pair = RunePowers.Instance.PerformOnSlots(slots, pair, OnHeldAttackStartInternal);
 		handling = pair.Right;
 		return pair.Left;
 	}
@@ -79,13 +79,13 @@ public class ModifiableBehavior : CollectibleBehavior {
 	public override void OnHeldInteractStop(float secondsUsed, ItemSlot slot, EntityAgent byEntity,
 											BlockSelection blockSel,
 											EntitySelection entitySel, ref EnumHandling handling) {
-		var slots = Modifiers.GetModifiableSlots(byEntity);
+		var slots = RunePowers.GetModifiableSlots(byEntity);
 		var result = handling;
 
-		EnumHandling OnHeldAttackStopInternal(ModifierEntry x, EnumHandling y) =>
-			x.Modifier.OnInteractedWithStop(secondsUsed, slot, byEntity, blockSel, entitySel, y, x);
+		EnumHandling OnHeldAttackStopInternal(RunePowerEntry x, EnumHandling y) =>
+			x.RunePower.OnInteractedWithStop(secondsUsed, slot, byEntity, blockSel, entitySel, y, x);
 
-		result = Modifiers.Instance.PerformOnSlots(slots, result, OnHeldAttackStopInternal);
+		result = RunePowers.Instance.PerformOnSlots(slots, result, OnHeldAttackStopInternal);
 		handling = result;
 	}
 

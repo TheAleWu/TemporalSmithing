@@ -9,7 +9,7 @@
   },
   "textures": {
 	"steel": "game:block/metal/plate/steel",
-	"teleporter": "game:block/teleporter",
+	"teleporter": "temporalsmithing:temporalgear-modified",
 	"acacia2": "game:block/wood/treetrunk/acacia",
 	"acacia": "game:block/wood/bark/acacia"
   },

@@ -6,10 +6,12 @@
   "item-blunt-file-blade-*": "Stumpfes Feilenblatt",
   "item-file-blade-*": "Feilenblatt",
   "item-metal-file-*": "Metallfeile",
+  "item-empty-rune": "Leere Rune",
+  "itemdesc-empty-rune": "<font color=\"#99c9f9\"><i>Ein glatte Steinplatte, die eine einschüchternde Energie freisetzt.</i></font>\n",
   "item-rune-of-ripping": "Rune des Reißens",
   "item-rune-of-yield": "Rune des Ertrags",
   "item-rune-of-hardening": "Rune des Härtens",
-  
+
   "block-smithing-table": "Schmiedetisch",
 
   "game:tabname-smithing-general": "Temporales Schmieden",

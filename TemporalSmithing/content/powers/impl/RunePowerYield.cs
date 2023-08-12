@@ -8,9 +8,9 @@ using Vintagestory.GameContent;
 
 namespace temporalsmithing.content.modifier.impl;
 
-public class ModifierYield : Modifier {
+public class RunePowerYield : RunePower {
 
-	public ModifierYield() {
+	public RunePowerYield() {
 		OnModificationFinish += (api, modified, modifier) => ApplyOnItem(api, modified, modifier);
 		OnModifierRemoved += RemoveFromItem;
 	}
@@ -27,11 +27,7 @@ public class ModifierYield : Modifier {
 		return Color.FromArgb(74, 170, 0);
 	}
 
-	public override float GetItemRetrievalChanceOnRemoval() {
-		return 0;
-	}
-
-	public override float OnAttackedWith(Entity entity, DamageSource damageSource, float damage, ModifierEntry currentEntry) {
+	public override float OnAttackedWith(Entity entity, DamageSource damageSource, float damage, RunePowerEntry currentEntry) {
 		var player = damageSource.SourceEntity as EntityPlayer;
 		if (player is not null) {
 			
@@ -39,7 +35,7 @@ public class ModifierYield : Modifier {
 		return base.OnAttackedWith(entity, damageSource, damage, currentEntry);
 	}
 
-	public override void OnKillEntityWith(Entity entity, DamageSource damagesource, ModifierEntry currentEntry) {
+	public override void OnKillEntityWith(Entity entity, DamageSource damagesource, RunePowerEntry currentEntry) {
 		var currentlyApplied = entity.Attributes.GetInt("razorSharpCount");
 		var modifierToAdd = 0.2f / (float) Math.Pow(2, currentlyApplied);
 		

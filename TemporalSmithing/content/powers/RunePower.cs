@@ -13,13 +13,13 @@ using Vintagestory.API.Server;
 
 namespace temporalsmithing.content.modifier;
 
-public abstract class Modifier {
+public abstract class RunePower {
 
 	private const string HandbookInfoColor = "#DAA520";
 	private static string WhiteText => ColorToHex.Transform(Color.White);
 	public Action<ICoreAPI, ItemSlot, ItemSlot> OnModificationFinish { get; private protected set; } = (_, _, _) => { };
 
-	public Action<ICoreAPI, ItemSlot, ModifierEntry> OnModifierRemoved { get; private protected set; } =
+	public Action<ICoreAPI, ItemSlot, RunePowerEntry> OnModifierRemoved { get; private protected set; } =
 		(_, _, _) => { };
 
 	/// Returns the key of the modification
@@ -39,12 +39,12 @@ public abstract class Modifier {
 	#region Events
 
 	public virtual float OnAttackedWith(Entity entity, DamageSource damageSource, float damage,
-										ModifierEntry currentEntry) {
+										RunePowerEntry currentEntry) {
 		return damage;
 	}
 
 	public virtual bool OnAttackingWith(bool continueCode, IWorldAccessor world, Entity byEntity, Entity attackedEntity,
-										ItemSlot itemslot, ModifierEntry currentEntry) {
+										ItemSlot itemslot, RunePowerEntry currentEntry) {
 		return continueCode;
 	}
 
@@ -54,7 +54,7 @@ public abstract class Modifier {
 
 	public virtual Pair<EnumHandHandling, EnumHandling> OnInteractedWithStart(
 		ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent,
-		EnumHandHandling handHandling, EnumHandling handling, ModifierEntry currentEntry) {
+		EnumHandHandling handHandling, EnumHandling handling, RunePowerEntry currentEntry) {
 		return new Pair<EnumHandHandling, EnumHandling>(handHandling, handling);
 	}
 
@@ -62,28 +62,28 @@ public abstract class Modifier {
 																 ItemSlot slot, EntityAgent byEntity,
 																 BlockSelection blockSel, EntitySelection entitySel,
 																 EnumHandling handling,
-																 ModifierEntry currentEntry) {
+																 RunePowerEntry currentEntry) {
 		return new Pair<bool, EnumHandling>(wasCancelledBefore, handling);
 	}
 
 	public virtual EnumHandling OnInteractedWithStop(float secondsUsed, ItemSlot slot, EntityAgent byEntity,
 													 BlockSelection blockSel, EntitySelection entitySel,
 													 EnumHandling handling,
-													 ModifierEntry currentEntry) {
+													 RunePowerEntry currentEntry) {
 		return handling;
 	}
 
 	public virtual void OnKillEntityWith(Entity entity, DamageSource damagesource,
-										 ModifierEntry currentEntry) { }
+										 RunePowerEntry currentEntry) { }
 
 	public virtual Pair<float, EnumHandling> OnBreakBlockWith(IServerPlayer byplayer, BlockSelection blocksel,
 															  float dropquantitymultiplier, EnumHandling handling,
-															  ModifierEntry currentEntry) {
+															  RunePowerEntry currentEntry) {
 		return new Pair<float, EnumHandling>(dropquantitymultiplier, handling);
 	}
 
 	public virtual float OnEntityReceiveDamage(DamageSource damageSource, float damage,
-											   ModifierEntry currentEntry) {
+											   RunePowerEntry currentEntry) {
 		return damage;
 	}
 
@@ -95,15 +95,15 @@ public abstract class Modifier {
 	}
 
 	public virtual int GetRequiredHitsToApply() {
-		return 20;
-	}
-
-	public virtual int GetRequiredHitsToRemove() {
 		return 10;
 	}
 
+	public virtual int GetRequiredHitsToRemove() {
+		return 25;
+	}
+
 	public virtual float GetItemRetrievalChanceOnRemoval() {
-		return 0.5f;
+		return 0.75f;
 	}
 
 	public float GetItemRetrievalPercentageOnRemoval() {
@@ -135,7 +135,7 @@ public abstract class Modifier {
 			$"<font color=\"#{WhiteText}\"><icon name=hammer/> {requiredApplyText} {requiredHitsToApply}</font>"
 		);
 
-		if (this is not UnlockingModifier) {
+		if (this is not UnlockingRunePower) {
 			var whenRemovedText = Lang.Get("temporalsmithing:modifier.when-removed");
 			builder.AppendLine().AppendLine(
 				$"<font lineheight=\"1.2\" color=\"#{ColorToHex.Transform(Color.Goldenrod)}\"> {whenRemovedText}</font>"
@@ -177,7 +177,7 @@ public abstract class Modifier {
 		var modifiers = attr.GetOrAddTreeAttribute("modifiers");
 		var entry = modifiers.GetOrAddTreeAttribute(modId);
 
-		var modKey = Modifiers.Instance.GetModifierKey(modifier.Itemstack);
+		var modKey = RunePowers.Instance.GetModifierKey(modifier.Itemstack);
 		entry.SetString("key", modKey);
 		entry.SetItemstack("source", modifier.Itemstack);
 		if (additionalData is not null) {
@@ -192,7 +192,7 @@ public abstract class Modifier {
 		modified.MarkDirty();
 	}
 
-	internal static void RemoveFromItem(ICoreAPI api, ItemSlot modified, ModifierEntry entry) {
+	internal static void RemoveFromItem(ICoreAPI api, ItemSlot modified, RunePowerEntry entry) {
 		if (modified.Empty || modified.Itemstack.Attributes is null || entry is null) return;
 
 		var modId = entry.EntryId;

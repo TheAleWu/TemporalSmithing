@@ -12,7 +12,7 @@ using Vintagestory.API.MathTools;
 
 namespace temporalsmithing.content.modifier.impl;
 
-public class ModifierRipping : Modifier {
+public class RunePowerRipping : RunePower {
 
 	private const int MaxBloodParticleSpawners = 3;
 	private readonly Dictionary<long, int> bloodParticleSpawner = new();
@@ -24,7 +24,7 @@ public class ModifierRipping : Modifier {
 	   .Append("bell-", Color.FromArgb(47, 16, 82).ToArgb())
 	   .Append("strawdummy", 0);
 
-	public ModifierRipping() {
+	public RunePowerRipping() {
 		OnModificationFinish += (api, modified, modifier) => ApplyOnItem(api, modified, modifier);
 		OnModifierRemoved += RemoveFromItem;
 	}
@@ -41,18 +41,6 @@ public class ModifierRipping : Modifier {
 		return Color.FromArgb(240, 30, 30);
 	}
 
-	public override int GetRequiredHitsToApply() {
-		return 25;
-	}
-
-	public override int GetRequiredHitsToRemove() {
-		return 20;
-	}
-
-	public override float GetItemRetrievalChanceOnRemoval() {
-		return 0.75f;
-	}
-
 	public override object[] GetDescriptionArguments(ItemStack stack) {
 		var seconds = 0;
 		if (stack.Item is RuneItem mi) {
@@ -63,7 +51,7 @@ public class ModifierRipping : Modifier {
 	}
 
 	public override float OnAttackedWith(Entity entity, DamageSource damageSource, float damage,
-										 ModifierEntry currentEntry) {
+										 RunePowerEntry currentEntry) {
 		ProccingTimer timer = null;
 		if (timers.ContainsKey(entity.EntityId)) {
 			timer = timers[entity.EntityId] as ProccingTimer;

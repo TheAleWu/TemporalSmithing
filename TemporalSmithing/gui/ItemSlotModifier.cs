@@ -8,19 +8,19 @@ namespace temporalsmithing.gui;
 public class ItemSlotModifier : ItemSlot {
 
 	private readonly InventorySmithingTable inv;
-	private ModifierEntry heldModifier;
+	private RunePowerEntry heldRunePower;
 	private bool selected;
 
-	public ItemSlotModifier(InventorySmithingTable inventory, ModifierEntry heldModifier) : base(inventory) {
+	public ItemSlotModifier(InventorySmithingTable inventory, RunePowerEntry heldRunePower) : base(inventory) {
 		inv = inventory;
-		HeldModifier = heldModifier;
+		HeldRunePower = heldRunePower;
 	}
 
-	public ModifierEntry HeldModifier {
-		get => heldModifier;
+	public RunePowerEntry HeldRunePower {
+		get => heldRunePower;
 		internal set {
-			var init = heldModifier is null;
-			heldModifier = value;
+			var init = heldRunePower is null;
+			heldRunePower = value;
 			if (!init) SetSelected(false);
 		}
 	}
@@ -38,7 +38,7 @@ public class ItemSlotModifier : ItemSlot {
 	}
 
 	public bool HoldsModifier() {
-		return HeldModifier is not null;
+		return HeldRunePower is not null;
 	}
 
 	public override string GetStackName() {
@@ -50,7 +50,7 @@ public class ItemSlotModifier : ItemSlot {
 	public override string GetStackDescription(IClientWorldAccessor world, bool extendedDebugInfo) {
 		var builder = new StringBuilder();
 
-		HeldModifier.Modifier.WriteDescription(HeldModifier.SourceItem, builder);
+		HeldRunePower.RunePower.WriteDescription(HeldRunePower.SourceItem, builder);
 
 		return builder.ToString();
 	}
@@ -67,7 +67,7 @@ public class ItemSlotModifier : ItemSlot {
 		if (blockEntity is null) return;
 
 		blockEntity.ResetPerformedHits();
-		if (heldModifier is not null) blockEntity.UpdateRequiredHits(heldModifier.Modifier.GetRequiredHitsToRemove());
+		if (heldRunePower is not null) blockEntity.UpdateRequiredHits(heldRunePower.RunePower.GetRequiredHitsToRemove());
 		blockEntity.InvDialog?.MarkDirty();
 	}
 

@@ -9,14 +9,10 @@ namespace temporalsmithing.harmony;
 internal class HarmonyCollectibleObjectOnAttackWith {
 
 	public static bool Patch(IWorldAccessor world, Entity byEntity, Entity attackedEntity, ItemSlot itemslot) {
-		var slots = Modifiers.GetModifiableSlots(byEntity);
-		var continueCode = true;
+		return RunePowers.Instance.PerformOnSlot(itemslot, true, DamageItemInternal);
 
-		bool OnAttackingWithInternal(ModifierEntry x, bool val) =>
-			x.Modifier.OnAttackingWith(val, world, byEntity, attackedEntity, itemslot, x);
-
-		continueCode = Modifiers.Instance.PerformOnSlots(slots, true, OnAttackingWithInternal);
-		return continueCode;
+		bool DamageItemInternal(RunePowerEntry x, bool val) =>
+			x.RunePower.OnAttackingWith(val, world, byEntity, attackedEntity, itemslot, x);
 	}
 
 }

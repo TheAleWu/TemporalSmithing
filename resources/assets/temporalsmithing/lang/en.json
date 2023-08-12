@@ -6,6 +6,8 @@
   "item-blunt-file-blade-*": "Blunt File Blade",
   "item-file-blade-*": "File Blade",
   "item-metal-file-*": "Metal File",
+  "item-empty-rune": "Empty Rune",
+  "itemdesc-empty-rune": "<font color=\"#99c9f9\"><i>A smooth stone plate releasing an uncomforting type of energy.</i></font>\n",
   "item-rune-of-ripping": "Rune of Ripping",
   "item-rune-of-yield": "Rune of Yield",
   "item-rune-of-hardening": "Rune of Hardening",

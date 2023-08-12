@@ -7,14 +7,14 @@ using Vintagestory.API.Server;
 
 namespace temporalsmithing.content;
 
-public class AdditionalModifierEvents {
+public class EventExtensions {
 
 	private const int EntityHit = 0;
 	private const int EntityRightClick = 1;
 	private static bool initClient;
 	private static bool initServer;
 
-	private AdditionalModifierEvents() { }
+	private EventExtensions() { }
 
 	public static void InitClient(ICoreClientAPI api) {
 		if (initClient) return;
@@ -33,21 +33,21 @@ public class AdditionalModifierEvents {
 	}
 
 	private static void OnEntityDeath(Entity entity, DamageSource damagesource) {
-		var slots = Modifiers.GetModifiableSlots(damagesource?.SourceEntity);
+		var slots = RunePowers.GetModifiableSlots(damagesource?.SourceEntity);
 
-		Modifiers.Instance.PerformOnSlots(slots, x => x.Modifier.OnKillEntityWith(entity, damagesource, x));
+		RunePowers.Instance.PerformOnSlots(slots, x => x.RunePower.OnKillEntityWith(entity, damagesource, x));
 	}
 
 	private static void OnBreakBlock(IServerPlayer byplayer, BlockSelection blocksel, ref float dropquantitymultiplier,
 									 ref EnumHandling handling) {
-		var slots = Modifiers.GetModifiableSlots(byplayer.Entity);
+		var slots = RunePowers.GetModifiableSlots(byplayer.Entity);
 
 		var pair = new Pair<float, EnumHandling>(dropquantitymultiplier, handling);
 
-		Pair<float, EnumHandling> OnEntityReceiveDamageInternal(ModifierEntry x, Pair<float, EnumHandling> y) =>
-			x.Modifier.OnBreakBlockWith(byplayer, blocksel, y.Left, y.Right, x);
+		Pair<float, EnumHandling> OnEntityReceiveDamageInternal(RunePowerEntry x, Pair<float, EnumHandling> y) =>
+			x.RunePower.OnBreakBlockWith(byplayer, blocksel, y.Left, y.Right, x);
 
-		pair = Modifiers.Instance.PerformOnSlots(slots, pair, OnEntityReceiveDamageInternal);
+		pair = RunePowers.Instance.PerformOnSlots(slots, pair, OnEntityReceiveDamageInternal);
 		dropquantitymultiplier = pair.Left;
 		handling = pair.Right;
 	}

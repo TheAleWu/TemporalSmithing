@@ -102,7 +102,7 @@ internal class HarmonyHandbookReferenceInjection {
 		}
 
 		var modKey = refVal.Substring(leftParenthesisIndex + 1, rightParenthesisIndex - leftParenthesisIndex - 1);
-		var mod = Modifiers.Instance.GetModifier(modKey);
+		var mod = RunePowers.Instance.GetModifier(modKey);
 		if (mod is null) {
 			api.Logger.Warning($"Modifier {modKey} could not be resolved.");
 			return null;
@@ -139,7 +139,7 @@ internal class HarmonyHandbookReferenceInjection {
 				return null;
 			}
 
-			var modifiers = behavior.PossibleModifiers.Select(x => Modifiers.Instance.GetModifier(x));
+			var modifiers = behavior.PossibleModifiers.Select(x => RunePowers.Instance.GetModifier(x));
 			foreach (var mod in modifiers) {
 				mod?.WriteHandbookDescription(api, builder);
 			}
